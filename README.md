@@ -34,18 +34,19 @@ virtualenv env
 ``` sh
 1. Open VSCode as Adminstrator
 2. Open Terminal
-3. Type <powershell></powershell>
+3. Type <powershell>
 4. Type <Get-ExecutionPolicy>. If it return Restricted, continue to next step
 5. Type <Set-ExecutionPolicy –ExecutionPolicy RemoteSigned>
 6. Check again by type <Get-ExecutionPolicy>
 7. Close VSCode and open normal again.
 ```
 
-#### That will create a new folder env in your project directory. Next activate it with this command on Windows, Mac/Linux:
+#### That will create a new folder env in your project directory. Next activate it with this command on Windows:
 
 ``` sh
 env\Scripts\activate
 ```
+or Mac/Linux:
 ``` sh
 source env/bin/active
 ```

@@ -45,7 +45,7 @@ virtualenv env
 
 ``` sh
 1. env\Scripts\activate
-2. or: e:/THESIS/GITHUB/PreProduceCode-FMPN-FER/env/Scripts/Activate.ps1
+2. or: e:/THESIS/GITHUB/Emotion_Diary/env/Scripts/Activate.ps1
 ```
 or Mac/Linux:
 ``` sh

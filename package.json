@@ -1,17 +1,17 @@
 {
-    "name": "flask-black-dashboard",
-    "mastertemplate": "boilerplate-code-flask-dashboard",
-    "version": "1.0.5",
-    "description": "Template project - Flask Boilerplate Code",
+    "name": "emotion-diary",
+    "mastertemplate": "flask-black-dashboard",
+    "version": "0.0.0",
+    "description": "Emotion Diary",
     "repository": {
         "type": "git",
-        "url": "https://github.com/app-generator/flask-black-dashboard"
+        "url": "https://github.com/WhiTExB3AR/Emotion_Diary"
     },
     "bugs": {
-        "url": "https://github.com/app-generator/flask-black-dashboard/issues",
-        "email": "support@appseed.us"
+        "url": "https://github.com/WhiTExB3AR/Emotion_Diary/issues",
+        "email": "17521120@gm.uit.edu.vn"
     },
-    "author": "AppSeed App Generator <support@appseed.us> (https://appseed.us)",
+    "author": "Lê Đặng Xuân Thuỳ <17521120@gm.uit.edu.vn>",
     "engines": {
         "node": ">=10.0.0"
     },

@@ -1,15 +1,21 @@
 
 
     <div class="sidebar">
-      <div class="sidebar-wrapper">
+      <div class="sidebar-wrapper" >
         <div class="logo">
-          <a target="_blank" rel="sponsored noopener noreferrer" 
-             href="https://appseed.us/admin-dashboards/flask-dashboard-black" class="simple-text logo-mini">
-            PI
+          <!-- <a target="_blank" rel="sponsored noopener noreferrer" 
+             href="https://github.com/WhiTExB3AR/Emotion_Diary" class="simple-text logo-mini">
+             <i class="tim-icons icon-bullet-list-67"></i>
           </a>
           <a target="_blank" rel="sponsored noopener noreferrer" 
-             href="https://appseed.us/admin-dashboards/flask-dashboard-black" class="simple-text logo-normal">
-            Flask Black
+             href="https://github.com/WhiTExB3AR/Emotion_Diary" class="simple-text logo-normal">
+            Menu
+          </a> -->
+          <a href="/" class="simple-text logo-mini">
+            <i class="tim-icons icon-bullet-list-67"></i>
+          </a>
+          <a href="/" class="simple-text logo-normal">
+            Menu
           </a>
         </div>
 
@@ -18,26 +24,14 @@
 
           <li class="{% if 'index' in segment %} active {% endif %}">
             <a href="/">
-              <i class="tim-icons icon-chart-pie-36"></i>
-              <p>Dashboard</p>
-            </a>
-          </li>
-          <li class="{% if 'icons' in segment %} active {% endif %}">
-            <a href="/ui-icons.html">
-              <i class="tim-icons icon-atom"></i>
-              <p>Icons</p>
-            </a>
-          </li>
-          <li class="{% if 'maps' in segment %} active {% endif %}">
-            <a href="/ui-maps.html">
-              <i class="tim-icons icon-pin"></i>
-              <p>Maps</p>
+              <i class="tim-icons icon-app"></i>
+              <p>Home</p>
             </a>
           </li>
           <li class="{% if 'notifications' in segment %} active {% endif %}">
             <a href="/ui-notifications.html">
-              <i class="tim-icons icon-bell-55"></i>
-              <p>Notifications</p>
+              <i class="tim-icons icon-satisfied"></i>
+              <p>Diary</p>
             </a>
           </li>
           <li class="{% if 'page-user' in segment %} active {% endif %}">
@@ -46,10 +40,16 @@
               <p>User Profile</p>
             </a>
           </li>
-          <li class="{% if 'tables' in segment %} active {% endif %}">
-            <a href="/ui-tables.html">
-              <i class="tim-icons icon-puzzle-10"></i>
-              <p>Table List</p>
+          <!-- <li>
+            <a href="{{ url_for('authentication_blueprint.logout') }}" >
+              <i class="tim-icons icon-button-power"></i>
+              <p>Logout</p>
+            </a>
+          </li> -->
+          <!-- <li class="{% if 'icons' in segment %} active {% endif %}">
+            <a href="/ui-icons.html">
+              <i class="tim-icons icon-atom"></i>
+              <p>Icons</p>
             </a>
           </li>
           <li class="{% if 'typography' in segment %} active {% endif %}">
@@ -58,24 +58,28 @@
               <p>Typography</p>
             </a>
           </li>
-          <li class="{% if 'rtl-support' in segment %} active {% endif %}">
-            <a href="/page-rtl-support.html">
-              <i class="tim-icons icon-world"></i>
-              <p>RTL Support</p>
+          <li class="{% if 'tables' in segment %} active {% endif %}">
+            <a href="/ui-tables.html">
+              <i class="tim-icons icon-puzzle-10"></i>
+              <p>Table List</p>
             </a>
           </li>
-          <li>
-            <a href="{{ url_for('authentication_blueprint.logout') }}" >
-              <i class="tim-icons icon-button-power"></i>
-              <p>Logout</p>
+          <li class="{% if 'maps' in segment %} active {% endif %}">
+            <a href="/ui-maps.html">
+              <i class="tim-icons icon-pin"></i>
+              <p>Maps</p>
             </a>
-          </li>
+          </li> -->
           {% else %}
           <li class="active">
-            <a target="_blank" 
-               href="https://appseed.us/admin-dashboards/flask-dashboard-black-pro">
-              <i class="tim-icons icon-spaceship"></i>
-              <p>PRO Version</p>
+            <!-- <a target="_blank" 
+               href="/login">
+              <i class="tim-icons icon-lock-circle"></i>
+              <p>Login / SignUp</p>
+            </a> -->
+            <a href="/login">
+              <i class="tim-icons icon-lock-circle"></i>
+              <p>Login / SignUp</p>
             </a>
           </li>   
           {% endif %}

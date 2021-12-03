@@ -179,7 +179,7 @@ SECRET_KEY=S3cr3t_Key   # The Key used by Flask to encrypt session information
 # Database production settings (If DEBUG=False)
 
 DB_ENGINE=postgresql    # DBMS
-DB_NAME=emotion-diary   # Database Name
+DB_NAME=db-emotion-diary   # Database Name
 DB_HOST=localhost       # Database Host
 DB_PORT=5432            # Database Port
 DB_USERNAME=admin       # DB Username

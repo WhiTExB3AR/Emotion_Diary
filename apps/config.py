@@ -30,6 +30,7 @@ class ProductionConfig(Config):
         config('DB_PASS', default='pass'),
         config('DB_HOST', default='localhost'),
         config('DB_PORT', default=5432),
+        # config('DB_NAME', default='appseed-flask')
         config('DB_NAME', default='db-emotion-diary')
     )
 
@@ -45,4 +46,3 @@ config_dict = {
 
 
 
-        # config('DB_NAME', default='appseed-flask')

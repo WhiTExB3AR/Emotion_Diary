@@ -270,6 +270,123 @@ class Users(db.Model, UserMixin):
     password = db.Column(db.LargeBinary)
 ```
 
+```bash
+@blueprint.route('/index')
+@login_required
+def index():
+
+    return render_template('home/index.html', segment='index')
+
+@blueprint.route('/<template>')
+@login_required
+def route_template(template):
+
+    try:
+
+        if not template.endswith('.html'):
+            pass
+
+        # Detect the current page
+        segment = get_segment(request)
+
+        # Serve the file (if exists) from app/templates/home/FILE.html
+        return render_template("home/" + template, segment=segment)
+
+    except TemplateNotFound:
+        return render_template('home/page-404.html'), 404
+
+    except:
+        return render_template('home/page-500.html'), 500
+```
+
+```bash
+@blueprint.route('/')
+def route_default():
+    return redirect(url_for('authentication_blueprint.login'))
+
+
+# Login & Registration
+
+@blueprint.route('/login', methods=['GET', 'POST'])
+def login():
+    login_form = LoginForm(request.form)
+    if 'login' in request.form:
+
+        # read form data
+        username = request.form['username']
+        password = request.form['password']
+
+        # Locate user
+        user = Users.query.filter_by(username=username).first()
+
+        # Check the password
+        if user and verify_pass(password, user.password):
+
+            login_user(user)
+            return redirect(url_for('authentication_blueprint.route_default'))
+
+        # Something (user or pass) is not ok
+        return render_template('accounts/login.html',
+                               segment = 'login',     
+                               msg='Wrong user or password',
+                               form=login_form)
+
+    if not current_user.is_authenticated:
+        return render_template('accounts/login.html',
+                               segment = 'login', 
+                               form=login_form)
+    return redirect(url_for('home_blueprint.index'))
+
+
+@blueprint.route('/register', methods=['GET', 'POST'])
+def register():
+    create_account_form = CreateAccountForm(request.form)
+    if 'register' in request.form:
+
+        username = request.form['username']
+        email = request.form['email']
+
+        # Check usename exists
+        user = Users.query.filter_by(username=username).first()
+        if user:
+            return render_template('accounts/register.html',
+                                   msg='Username already registered',
+                                   segment = 'register',
+                                   success=False,
+                                   form=create_account_form)
+
+        # Check email exists
+        user = Users.query.filter_by(email=email).first()
+        if user:
+            return render_template('accounts/register.html',
+                                   msg='Email already registered',
+                                   segment = 'register', 
+                                   success=False,
+                                   form=create_account_form)
+
+        # else we can create the user
+        user = Users(**request.form)
+        db.session.add(user)
+        db.session.commit()
+
+        return render_template('accounts/register.html',
+                               msg='User created please <a href="/login">login</a>',
+                               segment = 'register', 
+                               success=True,
+                               form=create_account_form)
+
+    else:
+        return render_template( 'accounts/register.html',
+                                segment = 'register', 
+                                form=create_account_form)
+
+
+@blueprint.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('authentication_blueprint.login'))
+```
+
 ---
 
 <div align="center">

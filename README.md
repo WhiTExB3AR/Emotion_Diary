@@ -122,7 +122,7 @@ python manage.py runserver
    |
    |-- ************************************************************************
 ```
-
+```bash
 < PROJECT ROOT >
    |
    |-- apps/
@@ -133,7 +133,8 @@ python manage.py runserver
    |         |-- forms.py       # Define auth forms (login and register) 
    |
    |-- **************************
-
+```
+```bash
 < PROJECT ROOT >
    |
    |-- apps/
@@ -166,6 +167,7 @@ python manage.py runserver
    |
    |
    |-- **************************************
+```
 
 ---
 

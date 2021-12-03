@@ -26,13 +26,12 @@ class ProductionConfig(Config):
     # PostgreSQL database
     SQLALCHEMY_DATABASE_URI = '{}://{}:{}@{}:{}/{}'.format(
         config('DB_ENGINE', default='postgresql'),
-        config('DB_USERNAME', default='appseed'),
+        config('DB_USERNAME', default='admin'),
         config('DB_PASS', default='pass'),
         config('DB_HOST', default='localhost'),
         config('DB_PORT', default=5432),
-        config('DB_NAME', default='appseed-flask')
+        config('DB_NAME', default='db-emotion-diary')
     )
-
 
 class DebugConfig(Config):
     DEBUG = True
@@ -43,3 +42,7 @@ config_dict = {
     'Production': ProductionConfig,
     'Debug': DebugConfig
 }
+
+
+
+        # config('DB_NAME', default='appseed-flask')

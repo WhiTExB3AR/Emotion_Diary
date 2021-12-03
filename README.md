@@ -186,6 +186,51 @@ DB_USERNAME=admin       # DB Username
 DB_PASS=pass            # DB Password
 ```
 
+```bash
+# File: run.py
+
+DEBUG = config('DEBUG', default=True)
+
+# Create the WSGI app, using the app factory pattern
+app = create_app( app_config )
+
+# Migrate automatically the app using Flask Migrate library
+Migrate(app, db)
+```
+
+```bash
+# File: apps/__init__.py
+
+db            = SQLAlchemy()        # Invoke SQLAlchemy
+login_manager = LoginManager()      # Invoke Login Manager
+
+def register_extensions(app):
+    db.init_app(app)                # Inject SQLAlchemy magic
+    login_manager.init_app(app)     # Add Login Manager to the app
+
+# Register app blueprints: `authentication`, `home`
+def register_blueprints(app):
+    for module_name in ('authentication', 'home'):
+        module = import_module('app.{}.routes'.format(module_name))
+        app.register_blueprint(module.blueprint)
+
+# Create the tables (automatically)
+def configure_database(app):
+
+    @app.before_first_request
+    def initialize_database():
+        db.create_all()
+
+# Create the WSGI app using the factory pattern
+def create_app(config):
+    app = Flask(__name__)
+    app.config.from_object(config)
+    register_extensions(app)
+    register_blueprints(app)
+    configure_database(app)
+    return app
+```
+
 ---
 
 <div align="center">

@@ -31,6 +31,7 @@ virtualenv env
 ```
 
 #### Check and set ExecutionPolicy on Windows follow this tutorial:
+
 ``` sh
 1. Open VSCode as Adminstrator
 2. Open Terminal
@@ -47,7 +48,9 @@ virtualenv env
 1. env\Scripts\activate
 2. or: e:/THESIS/GITHUB/Emotion_Diary/env/Scripts/Activate.ps1
 ```
+
 or Mac/Linux:
+
 ``` sh
 source env/bin/active
 ```
@@ -122,6 +125,7 @@ python manage.py runserver
    |
    |-- ************************************************************************
 ```
+
 ```bash
 < PROJECT ROOT >
    |
@@ -134,6 +138,7 @@ python manage.py runserver
    |
    |-- **************************
 ```
+
 ```bash
 < PROJECT ROOT >
    |
@@ -259,6 +264,7 @@ SQLALCHEMY_DATABASE_URI = '{}://{}:{}@{}:{}/{}'.format(
     config('DB_NAME', default='db-emotion-diary')
 )
 ```
+
 ```bash
 class Users(db.Model, UserMixin):
 
@@ -390,6 +396,7 @@ def logout():
 ---
 
 <div align="center">
+
 <i>Find me here:</i><br>
 
 <a href="https://www.youtube.com/channel/UCzRuHTZpfoag9ky3P0UCFgg" target="_blank"><img src="https://img.shields.io/badge/YouTube-%23E4405F.svg?&style=flat-square&logo=youtube&logoColor=white" alt="YouTube"></a>

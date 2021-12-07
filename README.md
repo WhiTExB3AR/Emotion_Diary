@@ -76,6 +76,20 @@ python manage.py runserver
 **Note** if you want payments to work you will need to enter your own Stripe API keys into the `.env` file in the settings files.
 
 ```bash
+api-server-flask/
+├── api
+│   ├── config.py
+│   ├── __init__.py
+│   ├── models.py
+│   └── routes.py
+├── Dockerfile
+├── README.md
+├── requirements.txt
+├── run.py
+└── tests.py
+```
+
+```bash
 < PROJECT ROOT >
    |
    |-- apps/

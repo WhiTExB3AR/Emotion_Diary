@@ -67,10 +67,28 @@ deactivate
 pip install -r requirements.txt
 ```
 
-#### Now you can run the project with this command
+#### Now you can run the project with this command on Window
+
+### Run in python console
 
 ``` sh
-python manage.py runserver
+python run.py
+```
+
+### Run in flask console
+
+```sh
+$env:FLASK_APP = ".\run.py"
+$env:FLASK_ENV = "development"
+flask shell or flask run
+from apps import db
+db.create_all()
+from apps.authentication.models import Users, Emotions, Diaries
+emo_an = Emotions(0, 'Anger')
+dia_1 = Diaries(id=1, uid=3, eid=5, imgname='20211209-132000.png', title='Thesis', contents='I feel so stressfull and confused about machine learning. T_T')
+db.session.add(emo_an)
+db.session.add(dia_1)
+db.session.commit()
 ```
 
 **Note** if you want payments to work you will need to enter your own Stripe API keys into the `.env` file in the settings files.

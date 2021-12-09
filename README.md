@@ -285,9 +285,35 @@ class Users(db.Model, UserMixin):
     __tablename__ = 'Users'
 
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(64), unique=True)
-    email = db.Column(db.String(64), unique=True)
-    password = db.Column(db.LargeBinary)
+    username = db.Column(db.String(64), unique=True, nullable=False)
+    email = db.Column(db.String(64), unique=True, nullable=False)
+    password = db.Column(db.LargeBinary, nullable=False)
+
+    post = db.relationship("Diaries", backref="author", lazy="dynamic") 
+```
+
+```bash
+class Diaries(db.Model):
+
+    __tablename__ = "Diaries"
+
+    id = db.Column(db.Integer, primary_key=True)
+    post_datetime = db.Column(db.DateTime, default=datetime.utcnow)
+    uid = db.Column(db.Integer, db.ForeignKey("Users.id"), nullable=False)
+    eid = db.Column(db.Integer, db.ForeignKey("Emotions.id"), nullable=False)
+    imgname = db.Column(db.String(64), nullable=False)
+    title = db.Column(db.String(128))
+    contents = db.Column(db.String(255))
+```
+
+```bash
+class Emotions(db.Model):
+
+    __tablename__ = 'Emotions'
+
+    id = db.Column(db.Integer, primary_key=True)
+    emoname = db.Column(db.String(10), unique=True)
+    emo_post = db.relationship("Diaries", backref="emopost", lazy="dynamic")
 ```
 
 ```bash

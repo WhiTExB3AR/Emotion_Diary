@@ -15,40 +15,51 @@
             <div class="row">
               <div class="col-sm-6 text-left">
                 <h5 class="card-category">Emotion</h5>
-                <h2 class="card-title">Take picture</h2>
+                <h2 class="card-title">New Diary</h2>
               </div>
               <div class="col-sm-6">
-                <div class="btn-group btn-group-toggle float-right" data-toggle="buttons">
-                  <label class="btn btn-sm btn-primary btn-simple active" id="0">
+                 <div class="btn-group btn-group-toggle float-right" data-toggle="buttons">
+                  <label class="btn btn-sm btn-primary btn-simple" id="0">
                     <input type="radio" name="options" checked>
-                    <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Camera</span>
+                    <span id="start-camera" class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Start Camera</span>
                     <span class="d-block d-sm-none">
                       <i class="tim-icons icon-camera-18"></i>
                     </span>
                   </label>
-                  <label class="btn btn-sm btn-primary btn-simple" id="1">
+                  <label class="btn btn-sm btn-primary btn-simple active" id="1">
                     <input type="radio" class="d-none d-sm-none" name="options">
-                    <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Video</span>
+                    <span id="stop-camera" class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Stop Camera</span>
                     <span class="d-block d-sm-none">
-                      <i class="tim-icons icon-video-66"></i>
+                      <i class="tim-icons icon-button-pause"></i>
                     </span>
                   </label>
-                  <!-- <label class="btn btn-sm btn-primary btn-simple" id="2">
+                 <!-- <label class="btn btn-sm btn-primary btn-simple" id="2">
                     <input type="radio" class="d-none" name="options">
-                    <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">another option button</span>
+                    <span id="start-record" class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Stop</span>
                     <span class="d-block d-sm-none">
-                      <i class="tim-icons icon-tap-02"></i>
-                      <i class="tim-icons icon-video-66"></i>
+                      <i class="tim-icons icon-triangle-right-17"></i>
                     </span>
                   </label> -->
-                </div>
-              </div>
+                </div> 
+                <!-- <button id="start-camera" class="btn btn-outline-primary btn-block">Start Camera</button> requests user for camera access -->
+              </div> 
             </div>
           </div>
           <div class="card-body" >
-            <div class="chart-area">
+            <!-- <div class="chart-area">
+              <img src="{{ url_for('home_blueprint.video_feed') }}" width="50%">
               <button class="btn btn-primary btn-block">Capture</button>
-              <canvas id="chartBig1"></canvas>
+            </div> -->
+              <button id="click-photo" class="btn btn-primary btn-block">Capture</button> <!--requests user for camera access-->
+              <div class="col-md-15 text-center">
+              <div class="row">
+                <div class="col">
+                  <video id="cam-video" width="320" height="240" autoplay></video> <!--displays the camera stream-->
+                </div>
+                <div class="col">
+                  <canvas id="canvas-video" width="320" height="240"></canvas> <!--gets the data url string of the image-->
+                </div>
+            <div class="chart-area">
             </div>
           </div>
         </div>
@@ -391,10 +402,188 @@
 
   <script>
     $(document).ready(function() {
-      // Javascript method's body can be found in assets/js/demos.js
+      // Javascript method's body can be found in assets/demos.js
       demo.initDashboardPageCharts();
 
     });
+
+// ------- Start: B3AR config code -------
+    // // https://usefulangle.com/post/352/javascript-capture-image-from-camera
+    // let camera_button = document.querySelector("#start-camera");
+    // let stop_camera = document.querySelector("#stop-camera");
+    // let video = document.querySelector("#cam-video");
+    // let click_button = document.querySelector("#click-photo");
+    // let canvas = document.querySelector("#canvas-video");
+
+    // camera_button.addEventListener('click', async function() {
+    //     let stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+    //     video.srcObject = stream;
+    // });
+
+    // click_button.addEventListener('click', function() {
+    //     canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+    //     let image_data_url = canvas.toDataURL('image/jpeg');
+
+    //     // data url of the image
+    //     console.log(image_data_url);
+    // });
+    
+    // https://html5.tutorials24x7.com/blog/how-to-capture-image-from-camera
+    // The buttons to start & stop stream and to capture the image
+    // var btnStart = document.querySelector("#start-camera");
+    // var btnStop = document.querySelector("#stop-camera");
+    // var btnCapture = document.querySelector("#click-photo");
+
+    // // The stream & capture
+    // var videoInput = document.querySelector("#cam-video");
+    // var canvasOutput = document.querySelector("#canvas-video");
+
+    // // The video stream
+    // var cameraStream = null;
+
+    // // Attach listeners
+    // btnStart.addEventListener( "click", startStreaming );
+    // btnStop.addEventListener( "click", stopStreaming );
+    // btnCapture.addEventListener( "click", captureSnapshot );
+
+    // // Start Streaming
+    // function startStreaming() {
+    //   var mediaSupport = 'mediaDevices' in navigator;
+    //   if( mediaSupport && null == cameraStream ) {
+    //     navigator.mediaDevices.getUserMedia( { video: true } )
+    //     .then( function( mediaStream ) {
+    //       cameraStream = mediaStream;
+    //       videoInput.srcObject = mediaStream;
+    //       videoInput.play();
+    //     })
+    //     .catch( function( err ) {
+    //       console.log( "Unable to access camera: " + err );
+    //     });
+    //   }
+    //   else {
+    //     alert( 'Your browser does not support media devices.' );
+    //     return;
+    //   }
+    // }
+
+    // // Stop Streaming
+    // function stopStreaming() {
+    //   if( null != cameraStream ) {
+    //     var track = cameraStream.getTracks()[ 0 ];
+    //     track.stop();
+    //     videoInput.load();
+    //     cameraStream = null;
+    //   }
+    // }
+
+    // function captureSnapshot() {
+    //   if( null != cameraStream ) {
+    //     var ctx = canvasOutput.getContext( '2d' );
+    //     var img = new Image();
+    //     ctx.drawImage( videoInput, 0, 0, canvasOutput.width, canvasOutput.height );
+    //     img.src		= canvasOutput.toDataURL( "image/jpeg" );
+    //     img.width	= 240;
+    //   }
+    // }
+
+    // https://docs.opencv.org/4.5.4/df/d6c/tutorial_js_face_detection_camera.html
+    // The buttons to start & stop stream and to capture the image
+    var btnStart = document.querySelector("#start-camera");
+    var btnStop = document.querySelector("#stop-camera");
+    var btnCapture = document.querySelector("#click-photo");
+
+    // The stream & capture
+    var videoInput = document.querySelector("#cam-video");
+    // var canvasOutput = document.querySelector("#canvas-video");
+
+    // The video stream
+    var cameraStream = null;
+
+    // Attach listeners
+    btnStart.addEventListener( "click", startStreaming );
+    btnStop.addEventListener( "click", stopStreaming );
+    btnCapture.addEventListener( "click", captureSnapshot );
+
+    // Start Streaming
+    function startStreaming() {
+      var mediaSupport = 'mediaDevices' in navigator;
+      if( mediaSupport && null == cameraStream ) {
+        navigator.mediaDevices.getUserMedia( { video: true } )
+        .then( function( stream ) {
+          cameraStream = stream;
+          videoInput.srcObject = stream;
+          videoInput.play();
+        })
+        .catch( function( err ) {
+          console.log( "Unable to access camera: " + err );
+        });
+      }
+      else {
+        alert( 'Your browser does not support media devices.' );
+        return;
+      }
+    }
+
+
+    let canvasFrame = document.getElementById(canvas-video); // canvasFrame is the id of <canvas>
+    let canvas = document.getElementById(canvas-video1);
+
+    let src = new cv.Mat(videoInput.height, videoInput.width, cv.CV_8UC4);
+    let dst = new cv.Mat(videoInput.height, videoInput.width, cv.CV_8UC1);
+    let gray = new cv.Mat();
+    let cap = new cv.VideoCapture(videoInput);
+    let faces = new cv.RectVector();
+    let classifier = new cv.CascadeClassifier();
+
+    classifier.load('../../home/haarcascade/haarcascade_frontalface_default.xml');
+
+    const FPS = 30;
+    function captureSnapshot() {
+      if( null != cameraStream ) {
+        let begin = Date.now();
+        cap.read(src);
+        cv.cvtColor(src, dst, cv.COLOR_RGBA2GRAY);
+        src.copyTo(dst);
+        cv.cvtColor(dst, gray, cv.COLOR_RGBA2GRAY, 0);
+        // detect faces.
+        classifier.detectMultiScale(gray, faces, 1.1, 3, 0);
+        // draw faces.
+        for (let i = 0; i < faces.size(); ++i) {
+            let face = faces.get(i);
+            let point1 = new cv.Point(face.x, face.y);
+            let point2 = new cv.Point(face.x + face.width, face.y + face.height);
+            cv.rectangle(dst, point1, point2, [255, 0, 0, 255]);
+        }
+        cv.imshow('canvasFrame', dst);
+        // schedule next one.
+        let delay = 1000/FPS - (Date.now() - begin);
+        setTimeout(processVideo, delay);
+      }
+
+    };
+
+    // schedule first one.
+    setTimeout(captureSnapshot, 0);
+
+
+    
+    // Stop Streaming
+    function stopStreaming() {
+      if( null != cameraStream ) {
+        var track = cameraStream.getTracks()[ 0 ];
+        track.stop();
+        videoInput.load();
+        cameraStream = null;
+        // clean and stop.
+        src.delete();
+        dst.delete();
+        gray.delete();
+        faces.delete();
+        classifier.delete();
+        return;
+      }
+    }
+// ------- End: B3AR config code -------
   </script>
 
 {% endblock javascripts %}

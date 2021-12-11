@@ -21,14 +21,14 @@
                  <div class="btn-group btn-group-toggle float-right" data-toggle="buttons">
                   <label class="btn btn-sm btn-primary btn-simple" id="0">
                     <input type="radio" name="options" checked>
-                    <span id="start-camera" class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Start Camera</span> <!--requests user for camera access-->
+                    <button id="start-camera" class="btn-primary d-none d-sm-block d-md-block d-lg-block d-xl-block">Start Camera</button> <!--requests user for camera access-->
                     <span class="d-block d-sm-none">
                       <i class="tim-icons icon-camera-18"></i>
                     </span>
                   </label>
                   <label class="btn btn-sm btn-primary btn-simple active" id="1">
-                    <input type="radio" class="d-none d-sm-none" name="options">
-                    <span id="stop-camera" class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Stop Camera</span>
+                    <input type="radio" class="btn btn-primary btn-simple d-none d-sm-none" name="options">
+                    <button id="stop-camera" class="btn-primary d-none d-sm-block d-md-block d-lg-block d-xl-block">Stop Camera</button>
                     <span class="d-block d-sm-none">
                       <i class="tim-icons icon-button-pause"></i>
                     </span>
@@ -55,8 +55,10 @@
                 <div class="col">
                   <canvas id="canvas-video" width="320" height="240"></canvas> <!--gets the data url string of the image-->
                 </div>
+                <div class="col">
+                  {% include 'includes/video-feed.html' %}
+                </div>
             <div class="chart-area">
-              {% include 'includes/video-feed.html' %}
             </div>
           </div>
         </div>
@@ -77,7 +79,7 @@
   </script> -->
 
   <!-- Start: B3Ar config code-->
-  <!-- {% include 'includes/scripts-video.html' %} -->
+  {% include 'includes/scripts-video.html' %}
   <!-- End: B3Ar config code-->
 
 {% endblock javascripts %}

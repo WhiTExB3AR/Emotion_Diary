@@ -2,37 +2,37 @@
 # import the necessary packages
 import cv2
 import os
+from flask import g, Flask, current_app
 
-class VideoCamera(object):
-    def __init__(self):
-        #capturing video
-        self.camera = cv2.VideoCapture(0)
-    
-    def __del__(self):
-        #releasing camera
-        self.camera.release()
+camera = cv2.VideoCapture(0)
 
 #make shots directory to save pics
 try:
     os.mkdir('./snapshots')
 except OSError as error:
     pass
+print("[INFO] load detector")
+detector = cv2.CascadeClassifier('apps/static/assets/xml/haarcascade/haarcascade_frontalface_alt_tree.xml')
 
-def gen_frames(self):  # generate frame by frame from camera
+def gen_frames():  # generate frame by frame from camera
    while True:
         # initialize the video stream and allow the camera sensor to warm up
         #extracting frames
-        success, frame = self.camera.read()  # read the camera frame
+        success, frame = camera.read()  # read the camera frame
         if not success:
             break
         else:
             # print("[INFO] loading face detector...") # face detection
-            # detector = os.path.dirname(cv2.__file__) + "/data/haarcascade_frontalface_default.xml"
-            # faces = detector.detectMultiScale(frame,1.1,7)
-            # gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-            #  # Draw the rectangle around each face
-            # for (x, y, w, h) in faces:
-            #     cv2.rectangle(frame, (x, y), (x+w, y+h), (255, 0, 0), 2)
+            # with current_app.app_context():
+            #     print('1')
+            # detector = g.get('face_detector', None)
+            # if not detector:
+
+            faces = detector.detectMultiScale(frame,1.1,7)
+            gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+             # Draw the rectangle around each face
+            for (x, y, w, h) in faces:
+                cv2.rectangle(frame, (x, y), (x+w, y+h), (255, 0, 255), 2)
             
             # encode OpenCV raw frame to jpg and displaying it
             ret, jpeg = cv2.imencode('.jpg', frame) 

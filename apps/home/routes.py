@@ -18,7 +18,7 @@ def index():
     return render_template('home/index.html', segment='index')
 
 # ------- Start: B3AR config code -------
-# @blueprint.route('/video_feed')
+@blueprint.route('/video_feed')
 def video_feed():
 
     res = Response(gen_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')

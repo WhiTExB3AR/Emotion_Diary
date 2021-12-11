@@ -38,16 +38,6 @@
       }
     }
 
-    // Stop Streaming
-    function stopStreaming() {
-      if( null != cameraStream ) {
-        var track = cameraStream.getTracks()[ 0 ];
-        track.stop();
-        videoInput.load();
-        cameraStream = null;
-      }
-    }
-
     function captureSnapshot() {
       if( null != cameraStream ) {
         var ctx = canvasOutput.getContext( '2d' );
@@ -58,6 +48,15 @@
       }
     }
    
+    // Stop Streaming
+    function stopStreaming() {
+      if( null != cameraStream ) {
+        var track = cameraStream.getTracks()[ 0 ];
+        track.stop();
+        videoInput.load();
+        cameraStream = null;
+      }
+    }
     
     // // https://docs.opencv.org/4.5.4/df/d6c/tutorial_js_face_detection_camera.html
     // // The buttons to start & stop stream and to capture the image

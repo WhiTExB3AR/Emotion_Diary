@@ -21,7 +21,7 @@
                  <div class="btn-group btn-group-toggle float-right" data-toggle="buttons">
                   <label class="btn btn-sm btn-primary btn-simple" id="0">
                     <input type="radio" name="options" checked>
-                    <span id="start-camera" class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Start Camera</span>
+                    <span id="start-camera" class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Start Camera</span> <!--requests user for camera access-->
                     <span class="d-block d-sm-none">
                       <i class="tim-icons icon-camera-18"></i>
                     </span>
@@ -46,11 +46,7 @@
             </div>
           </div>
           <div class="card-body" >
-            <!-- <div class="chart-area">
-              <img src="{{ url_for('home_blueprint.video_feed') }}" width="50%">
-              <button class="btn btn-primary btn-block">Capture</button>
-            </div> -->
-              <button id="click-photo" class="btn btn-primary btn-block">Capture</button> <!--requests user for camera access-->
+              <button id="click-photo" class="btn btn-primary btn-block">Capture</button> <!--captures the playing video frame in canvas-vid-->
               <div class="col-md-15 text-center">
               <div class="row">
                 <div class="col">
@@ -60,339 +56,11 @@
                   <canvas id="canvas-video" width="320" height="240"></canvas> <!--gets the data url string of the image-->
                 </div>
             <div class="chart-area">
+              {% include 'includes/video-feed.html' %}
             </div>
           </div>
         </div>
       </div>
-
-    </div>
-    <div class="row">
-      <!-- <div class="col-lg-4">
-        <div class="card card-chart">
-          <div class="card-header">
-            <h5 class="card-category">Total Shipments</h5>
-            <h3 class="card-title"><i class="tim-icons icon-bell-55 text-primary"></i> 763,215</h3>
-          </div>
-          <div class="card-body">
-            <div class="chart-area">
-              <canvas id="chartLinePurple"></canvas>
-            </div>
-          </div>
-        </div>
-      </div> -->
-
-      <!-- <div class="col-lg-4">
-        <div class="card card-chart">
-          <div class="card-header">
-            <h5 class="card-category">Daily Sales</h5>
-            <h3 class="card-title"><i class="tim-icons icon-delivery-fast text-info"></i> 3,500€</h3>
-          </div>
-          <div class="card-body">
-            <div class="chart-area">
-              <canvas id="CountryChart"></canvas>
-            </div>
-          </div>
-        </div>
-      </div> -->
-
-      <!-- <div class="col-lg-4">
-        <div class="card card-chart">
-          <div class="card-header">
-            <h5 class="card-category">Completed Tasks</h5>
-            <h3 class="card-title"><i class="tim-icons icon-send text-success"></i> 12,100K</h3>
-          </div>
-          <div class="card-body">
-            <div class="chart-area">
-              <canvas id="chartLineGreen"></canvas>
-            </div>
-          </div>
-        </div>
-      </div> -->
-    </div>
-
-    <!-- <div class="row">
-      <div class="col-lg-6 col-md-12">
-        <div class="card card-tasks">
-          <div class="card-header ">
-            <h6 class="title d-inline">Tasks(5)</h6>
-            <p class="card-category d-inline">today</p>
-            <div class="dropdown">
-              <button type="button" class="btn btn-link dropdown-toggle btn-icon" data-toggle="dropdown">
-                <i class="tim-icons icon-settings-gear-63"></i>
-              </button>
-              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-                <a class="dropdown-item" href="#pablo">Action</a>
-                <a class="dropdown-item" href="#pablo">Another action</a>
-                <a class="dropdown-item" href="#pablo">Something else</a>
-              </div>
-            </div>
-          </div>
-          <div class="card-body ">
-            <div class="table-full-width table-responsive">
-              <table class="table">
-                <tbody>
-                  <tr>
-                    <td>
-                      <div class="form-check">
-                        <label class="form-check-label">
-                          <input class="form-check-input" type="checkbox" value="">
-                          <span class="form-check-sign">
-                            <span class="check"></span>
-                          </span>
-                        </label>
-                      </div>
-                    </td>
-                    <td>
-                      <p class="title">Update the Documentation</p>
-                      <p class="text-muted">Dwuamish Head, Seattle, WA 8:47 AM</p>
-                    </td>
-                    <td class="td-actions text-right">
-                      <button type="button" rel="tooltip" title="" class="btn btn-link" data-original-title="Edit Task">
-                        <i class="tim-icons icon-pencil"></i>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="form-check">
-                        <label class="form-check-label">
-                          <input class="form-check-input" type="checkbox" value="" checked="">
-                          <span class="form-check-sign">
-                            <span class="check"></span>
-                          </span>
-                        </label>
-                      </div>
-                    </td>
-                    <td>
-                      <p class="title">GDPR Compliance</p>
-                      <p class="text-muted">The GDPR is a regulation that requires businesses to protect the personal data and privacy of Europe citizens for transactions that occur within EU member states.</p>
-                    </td>
-                    <td class="td-actions text-right">
-                      <button type="button" rel="tooltip" title="" class="btn btn-link" data-original-title="Edit Task">
-                        <i class="tim-icons icon-pencil"></i>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="form-check">
-                        <label class="form-check-label">
-                          <input class="form-check-input" type="checkbox" value="">
-                          <span class="form-check-sign">
-                            <span class="check"></span>
-                          </span>
-                        </label>
-                      </div>
-                    </td>
-                    <td>
-                      <p class="title">Solve the issues</p>
-                      <p class="text-muted">Fifty percent of all respondents said they would be more likely to shop at a company </p>
-                    </td>
-                    <td class="td-actions text-right">
-                      <button type="button" rel="tooltip" title="" class="btn btn-link" data-original-title="Edit Task">
-                        <i class="tim-icons icon-pencil"></i>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="form-check">
-                        <label class="form-check-label">
-                          <input class="form-check-input" type="checkbox" value="">
-                          <span class="form-check-sign">
-                            <span class="check"></span>
-                          </span>
-                        </label>
-                      </div>
-                    </td>
-                    <td>
-                      <p class="title">Release v2.0.0</p>
-                      <p class="text-muted">Ra Ave SW, Seattle, WA 98116, SUA 11:19 AM</p>
-                    </td>
-                    <td class="td-actions text-right">
-                      <button type="button" rel="tooltip" title="" class="btn btn-link" data-original-title="Edit Task">
-                        <i class="tim-icons icon-pencil"></i>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="form-check">
-                        <label class="form-check-label">
-                          <input class="form-check-input" type="checkbox" value="">
-                          <span class="form-check-sign">
-                            <span class="check"></span>
-                          </span>
-                        </label>
-                      </div>
-                    </td>
-                    <td>
-                      <p class="title">Export the processed files</p>
-                      <p class="text-muted">The report also shows that consumers will not easily forgive a company once a breach exposing their personal data occurs. </p>
-                    </td>
-                    <td class="td-actions text-right">
-                      <button type="button" rel="tooltip" title="" class="btn btn-link" data-original-title="Edit Task">
-                        <i class="tim-icons icon-pencil"></i>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="form-check">
-                        <label class="form-check-label">
-                          <input class="form-check-input" type="checkbox" value="">
-                          <span class="form-check-sign">
-                            <span class="check"></span>
-                          </span>
-                        </label>
-                      </div>
-                    </td>
-                    <td>
-                      <p class="title">Arival at export process</p>
-                      <p class="text-muted">Capitol Hill, Seattle, WA 12:34 AM</p>
-                    </td>
-                    <td class="td-actions text-right">
-                      <button type="button" rel="tooltip" title="" class="btn btn-link" data-original-title="Edit Task">
-                        <i class="tim-icons icon-pencil"></i>
-                      </button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div> -->
-
-      <!-- <div class="col-lg-6 col-md-12">
-        <div class="card ">
-          <div class="card-header">
-            <h4 class="card-title"> Simple Table</h4>
-          </div>
-          <div class="card-body">
-            <div class="table-responsive">
-              <table class="table tablesorter " id="">
-                <thead class=" text-primary">
-                  <tr>
-                    <th>
-                      Name
-                    </th>
-                    <th>
-                      Country
-                    </th>
-                    <th>
-                      City
-                    </th>
-                    <th class="text-center">
-                      Salary
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>
-                      Dakota Rice
-                    </td>
-                    <td>
-                      Niger
-                    </td>
-                    <td>
-                      Oud-Turnhout
-                    </td>
-                    <td class="text-center">
-                      $36,738
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Minerva Hooper
-                    </td>
-                    <td>
-                      Curaçao
-                    </td>
-                    <td>
-                      Sinaai-Waas
-                    </td>
-                    <td class="text-center">
-                      $23,789
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Sage Rodriguez
-                    </td>
-                    <td>
-                      Netherlands
-                    </td>
-                    <td>
-                      Baileux
-                    </td>
-                    <td class="text-center">
-                      $56,142
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Philip Chaney
-                    </td>
-                    <td>
-                      Korea, South
-                    </td>
-                    <td>
-                      Overland Park
-                    </td>
-                    <td class="text-center">
-                      $38,735
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Doris Greene
-                    </td>
-                    <td>
-                      Malawi
-                    </td>
-                    <td>
-                      Feldkirchen in Kärnten
-                    </td>
-                    <td class="text-center">
-                      $63,542
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Mason Porter
-                    </td>
-                    <td>
-                      Chile
-                    </td>
-                    <td>
-                      Gloucester
-                    </td>
-                    <td class="text-center">
-                      $78,615
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Jon Porter
-                    </td>
-                    <td>
-                      Portugal
-                    </td>
-                    <td>
-                      Gloucester
-                    </td>
-                    <td class="text-center">
-                      $98,615
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div> -->
     </div>
 
 {% endblock content %}
@@ -400,170 +68,40 @@
 <!-- Specific Page JS goes HERE  -->
 {% block javascripts %}
 
-  <script>
+  <!-- <script>
     $(document).ready(function() {
       // Javascript method's body can be found in assets/demos.js
       demo.initDashboardPageCharts();
 
     });
+  </script> -->
 
-// ------- Start: B3AR config code -------
-    // https://html5.tutorials24x7.com/blog/how-to-capture-image-from-camera
-    // The buttons to start & stop stream and to capture the image
-    // var btnStart = document.querySelector("#start-camera");
-    // var btnStop = document.querySelector("#stop-camera");
-    // var btnCapture = document.querySelector("#click-photo");
-
-    // // The stream & capture
-    // var videoInput = document.querySelector("#cam-video");
-    // var canvasOutput = document.querySelector("#canvas-video");
-
-    // // The video stream
-    // var cameraStream = null;
-
-    // // Attach listeners
-    // btnStart.addEventListener( "click", startStreaming );
-    // btnStop.addEventListener( "click", stopStreaming );
-    // btnCapture.addEventListener( "click", captureSnapshot );
-
-    // // Start Streaming
-    // function startStreaming() {
-    //   var mediaSupport = 'mediaDevices' in navigator;
-    //   if( mediaSupport && null == cameraStream ) {
-    //     navigator.mediaDevices.getUserMedia( { video: true } )
-    //     .then( function( mediaStream ) {
-    //       cameraStream = mediaStream;
-    //       videoInput.srcObject = mediaStream;
-    //       videoInput.play();
-    //     })
-    //     .catch( function( err ) {
-    //       console.log( "Unable to access camera: " + err );
-    //     });
-    //   }
-    //   else {
-    //     alert( 'Your browser does not support media devices.' );
-    //     return;
-    //   }
-    // }
-
-    // // Stop Streaming
-    // function stopStreaming() {
-    //   if( null != cameraStream ) {
-    //     var track = cameraStream.getTracks()[ 0 ];
-    //     track.stop();
-    //     videoInput.load();
-    //     cameraStream = null;
-    //   }
-    // }
-
-    // function captureSnapshot() {
-    //   if( null != cameraStream ) {
-    //     var ctx = canvasOutput.getContext( '2d' );
-    //     var img = new Image();
-    //     ctx.drawImage( videoInput, 0, 0, canvasOutput.width, canvasOutput.height );
-    //     img.src		= canvasOutput.toDataURL( "image/jpeg" );
-    //     img.width	= 240;
-    //   }
-    // }
-
-    // https://docs.opencv.org/4.5.4/df/d6c/tutorial_js_face_detection_camera.html
-    // The buttons to start & stop stream and to capture the image
-    var btnStart = document.querySelector("#start-camera");
-    var btnStop = document.querySelector("#stop-camera");
-    var btnCapture = document.querySelector("#click-photo");
-
-    // The stream & capture
-    var videoInput = document.querySelector("#cam-video");
-    // var canvasOutput = document.querySelector("#canvas-video");
-
-    // The video stream
-    var cameraStream = null;
-
-    // Attach listeners
-    btnStart.addEventListener( "click", startStreaming );
-    btnStop.addEventListener( "click", stopStreaming );
-    btnCapture.addEventListener( "click", captureSnapshot );
-
-    // Start Streaming
-    function startStreaming() {
-      var mediaSupport = 'mediaDevices' in navigator;
-      if( mediaSupport && null == cameraStream ) {
-        navigator.mediaDevices.getUserMedia( { video: true } )
-        .then( function( stream ) {
-          cameraStream = stream;
-          videoInput.srcObject = stream;
-          videoInput.play();
-        })
-        .catch( function( err ) {
-          console.log( "Unable to access camera: " + err );
-        });
-      }
-      else {
-        alert( 'Your browser does not support media devices.' );
-        return;
-      }
-    }
-
-
-    let canvasFrame = document.getElementById(canvas-video); // canvasFrame is the id of <canvas>
-    let canvas = document.getElementById(canvas-video1);
-
-    let src = new cv.Mat(videoInput.height, videoInput.width, cv.CV_8UC4);
-    let dst = new cv.Mat(videoInput.height, videoInput.width, cv.CV_8UC1);
-    let gray = new cv.Mat();
-    let cap = new cv.VideoCapture(videoInput);
-    let faces = new cv.RectVector();
-    let classifier = new cv.CascadeClassifier();
-
-    classifier.load('../../home/haarcascade/haarcascade_frontalface_default.xml');
-
-    const FPS = 30;
-    function captureSnapshot() {
-      if( null != cameraStream ) {
-        let begin = Date.now();
-        cap.read(src);
-        cv.cvtColor(src, dst, cv.COLOR_RGBA2GRAY);
-        src.copyTo(dst);
-        cv.cvtColor(dst, gray, cv.COLOR_RGBA2GRAY, 0);
-        // detect faces.
-        classifier.detectMultiScale(gray, faces, 1.1, 3, 0);
-        // draw faces.
-        for (let i = 0; i < faces.size(); ++i) {
-            let face = faces.get(i);
-            let point1 = new cv.Point(face.x, face.y);
-            let point2 = new cv.Point(face.x + face.width, face.y + face.height);
-            cv.rectangle(dst, point1, point2, [255, 0, 0, 255]);
-        }
-        cv.imshow('canvasFrame', dst);
-        // schedule next one.
-        let delay = 1000/FPS - (Date.now() - begin);
-        setTimeout(processVideo, delay);
-      }
-
-    };
-
-    // schedule first one.
-    setTimeout(captureSnapshot, 0);
-
-
-    
-    // Stop Streaming
-    function stopStreaming() {
-      if( null != cameraStream ) {
-        var track = cameraStream.getTracks()[ 0 ];
-        track.stop();
-        videoInput.load();
-        cameraStream = null;
-        // clean and stop.
-        src.delete();
-        dst.delete();
-        gray.delete();
-        faces.delete();
-        classifier.delete();
-        return;
-      }
-    }
-// ------- End: B3AR config code -------
-  </script>
+  <!-- Start: B3Ar config code-->
+  <!-- {% include 'includes/scripts-video.html' %} -->
+  <!-- End: B3Ar config code-->
 
 {% endblock javascripts %}
+
+
+<!--
+  https://github.com/ageitgey/face_recognition/issues/827
+  https://medium.com/swlh/how-to-access-webcam-and-take-picture-with-javascript-b9116a983d78
+  https://towardsdatascience.com/how-to-display-video-streaming-from-a-webcam-using-flask-7a15e26fbab8
+    https://github.com/behl1anmol/VideoStreamingFlask/blob/master/camera.py
+  https://towardsdatascience.com/camera-app-with-flask-and-opencv-bd147f6c0eec
+    https://github.com/hemanth-nag/Camera_Flask_App
+  https://colab.research.google.com/drive/1HBCHI7PabneYj9r3RtZPLgbK0-6C1h2o#scrollTo=N77mENRp_cDV
+  https://www.codegrepper.com/code-examples/python/flask+opening+camera+while+in+1+page+and+closing+on+moving+to+other+page+flask
+  https://blog.miguelgrinberg.com/post/video-streaming-with-flask
+  https://github.com/krishnaik06/Flask-Web-Framework/blob/main/Tutorial%207%20opencv/haarcascade_frontalface_default.xml
+  https://www.youtube.com/watch?v=mzX5oqd3pKA&list=PLZoTAELRMXVPBaLN3e-uoVRR9hlRFRfUc&index=9
+
+  https://flask.palletsprojects.com/en/latest/
+
+  deploy
+  https://towardsdatascience.com/deploying-machine-learning-models-into-a-website-using-flask-8582b7ce8802
+  https://blog.cambridgespark.com/deploying-a-machine-learning-model-to-the-web-725688b851c7
+  https://medium.com/swlh/how-to-create-an-interactive-machine-learning-web-application-using-flask-and-heroku-5ae76a45bfc5
+  https://towardsdatascience.com/build-a-machine-learning-web-app-in-python-683480acbd37
+
+-->

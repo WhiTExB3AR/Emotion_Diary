@@ -15,13 +15,12 @@ def index():
 
     return render_template('home/index.html', segment='index')
 
+
 # ------- Start: B3AR config code -------
-def gen(camera):
-    while True:
-        frame = camera.get_frame()
-        yield (b'--frame\r\n'
-               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
+def video_feed():
+    return Response(gen_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
 # ------- End: B3AR config code -------
+
 
 @blueprint.route('/<template>')
 @login_required
@@ -43,13 +42,6 @@ def route_template(template):
 
     except:
         return render_template('home/page-500.html'), 500
-
-# ------- Start: B3AR config code -------
-@blueprint.route('/video_feed')
-def video_feed():
-    return Response(gen_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
- 
-# ------- End: B3AR config code -------
 
 # Helper - Extract current page name from request
 def get_segment(request):

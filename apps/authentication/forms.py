@@ -26,3 +26,7 @@ class CreateAccountForm(FlaskForm):
     password = PasswordField('Password',
                              id='pwd_create',
                              validators=[DataRequired()])
+
+# ------- Start: B3AR config code -------
+
+# ------- End: B3AR config code -------

@@ -2,10 +2,12 @@
 <div class="row">
     <div class="col-md-7">
       <div class="card">
-        <form role="form" method="post" action="">
+        <form role="form" method="post" action="/new-diary.html">
 
           <div class="card-header">
             <h5 class="title">Your diary today</h5>
+
+            {{ form.hidden_tag() }} 
 
             <h6 class="card-category">
                 Write it now and try capture your emotion by AI.
@@ -20,6 +22,7 @@
                   <label>Datetime</label>
                   <div class="text-center">
                     <input class="form-control" id="post_create_datetime" name="post_datetime" required="" type="datetime" value="">
+                    {{ form.post_datetime(class="form-control") }}
                   </div>
                 </div>
               </div>

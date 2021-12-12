@@ -18,8 +18,9 @@ import datetime
 @blueprint.route('/index')
 @login_required
 def index():
-
-    return render_template('home/index.html', segment='index')
+    create_form = CreateForm(request.form)
+    view_form = ViewForm(request.form)
+    return render_template('home/index.html', segment='index', form=create_form)
 
 # ------- Start: B3AR config code -------
 @blueprint.route('/video_feed')
@@ -31,8 +32,6 @@ def video_feed():
 @blueprint.route('/new_diary', methods=['GET', 'POST'])
 def new_diary():
     post_datetime = None
-    form = CreateForm()
-
     # validate form
     if form.validate_on_submit():
         post_datetime = form.post_datetime.data

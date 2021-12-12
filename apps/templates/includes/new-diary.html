@@ -1,0 +1,70 @@
+<!-- New diary form-->
+<div class="row">
+    <div class="col-md-7">
+      <div class="card">
+        <form role="form" method="post" action="">
+
+          <div class="card-header">
+            <h5 class="title">Your diary today</h5>
+
+            <h6 class="card-category">
+                Write it now and try capture your emotion by AI.
+            </h6>
+          </div>
+
+          <div class="card-body text-center">
+
+            <div class="row">
+              <div class="col-md-7 px-md-3 text-center">
+                <div class="form-group">
+                  <label>Datetime</label>
+                  <div class="text-center">
+                    <input class="form-control" id="post_create_datetime" name="post_datetime" required="" type="datetime" value="">
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-4 px-md-2">
+                <div class="form-group">
+                  <label>Emotion</label>
+                  <input class="form-control" id="emotion_create_diary" name="emoname" required="" type="text" value="">
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-11 px-md-3">
+                <div class="form-group">
+                  <label>Title</label>
+                  <input class="form-control" id="title_create_diary" name="title" required="" type="text" value="">
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-11 px-md-3">
+                <div class="form-group">
+                  <label>Tell about your day (Optional)</label>
+                  <input class="form-control" id="content_create_diary" name="content" type="text" value="">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-footer">
+            <button type="submit" class="btn btn-fill btn-primary">Create</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="col-md-5">
+      <div class="card card-user">
+        <div class="card-body">
+            {% include 'includes/video-feed.html' %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- End new diary form-->

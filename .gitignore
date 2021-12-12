@@ -21,6 +21,7 @@ env-pytorch-cuda
 # other
 .DS_Store
 .idea
+.vscode/
 
 # sphinx docs 
 _build

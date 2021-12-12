@@ -1,0 +1,39 @@
+<!-- New video with OpenCV -->
+<div class="card-body">
+    <button id="click-photo" class="btn btn-primary btn-block">Capture</button> <!--captures the playing video frame in canvas-vid-->
+    <div class="col-md-15 text-center">
+      <div class="row">
+        <div class="col">
+          <video id="cam-video" width="320" height="240" autoplay></video> <!--displays the camera stream-->
+        </div>
+        <div class="col">
+          <canvas id="canvas-video" width="320" height="240"></canvas> <!--gets the data url string of the image-->
+        </div>
+    <!-- <div class="chart-area">
+    </div> -->
+</div>
+<!-- End video with OpenCV -->
+
+<!-- Specific Page JS goes HERE
+{% block javascripts %}
+<script>
+    // https://usefulangle.com/post/352/javascript-capture-image-from-camera
+    let camera_button = document.querySelector("#start-camera");
+    let video = document.querySelector("#cam-video");
+    let click_button = document.querySelector("#click-photo");
+    let canvas = document.querySelector("#canvas-video");
+
+    camera_button.addEventListener('click', async function() {
+        let stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+        video.srcObject = stream;
+    });
+
+    click_button.addEventListener('click', function() {
+        canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+        let image_data_url = canvas.toDataURL('image/jpeg');
+
+        // data url of the image
+        console.log(image_data_url);
+    });
+</script>
+{% endblock javascripts %} -->

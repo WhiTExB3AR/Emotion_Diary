@@ -2,17 +2,17 @@
 # import the necessary packages
 import cv2
 import os
-from flask import g, Flask, current_app
 
 camera = cv2.VideoCapture(0)
 
-#make shots directory to save pics
+# make shots directory to save pics
 try:
     os.mkdir('./snapshots')
 except OSError as error:
     pass
-print("[INFO] load detector")
-detector = cv2.CascadeClassifier('apps/static/assets/xml/haarcascade/haarcascade_frontalface_alt_tree.xml')
+
+print("[INFO] loading face detector...") # Load model haarcascade global -> load 1 times
+detector = cv2.CascadeClassifier('apps/static/assets/xml/haarcascade/haarcascade_frontalface_default.xml')
 
 def gen_frames():  # generate frame by frame from camera
    while True:
@@ -22,9 +22,9 @@ def gen_frames():  # generate frame by frame from camera
         if not success:
             break
         else:
-            # print("[INFO] loading face detector...") # face detection
+            
+            # Line 15
             # with current_app.app_context():
-            #     print('1')
             # detector = g.get('face_detector', None)
             # if not detector:
 
@@ -32,6 +32,7 @@ def gen_frames():  # generate frame by frame from camera
             gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
              # Draw the rectangle around each face
             for (x, y, w, h) in faces:
+                # print("[INFO] Detected face...")
                 cv2.rectangle(frame, (x, y), (x+w, y+h), (255, 0, 255), 2)
             
             # encode OpenCV raw frame to jpg and displaying it

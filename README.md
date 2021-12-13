@@ -451,7 +451,10 @@ def logout():
     return redirect(url_for('authentication_blueprint.login'))
 ```
 
----
+```bash
+
+```
+
 
 <div align="center">
 

@@ -1,1 +1,0 @@
-# For using checkpoint of FMPN model to predict for web app

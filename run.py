@@ -1,11 +1,17 @@
 # -*- encoding: utf-8 -*-
 
+import os
+import sys
+from flask import request
 from flask_migrate import Migrate
+from flask_restful import Resource, Api
 from sys import exit
 from decouple import config
 
 from apps.config import config_dict
 from apps import create_app, db
+from apps.home.util import solver
+
 
 # WARNING: Don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=True, cast=bool)
@@ -13,8 +19,12 @@ DEBUG = config('DEBUG', default=True, cast=bool)
 # The configuration
 get_config_mode = 'Debug' if DEBUG else 'Production'
 
-try:
+# TODO Load Model
+# E load model hoặc solver gì đó ở bên util rồi gọi ở đây
+solver
 
+
+try:
     # Load the configuration using the default values
     app_config = config_dict[get_config_mode.capitalize()]
 
@@ -23,6 +33,23 @@ except KeyError:
 
 app = create_app(app_config)
 Migrate(app, db)
+
+
+# TODO đây là code mẫu tạo rest api, tạm để ở đây e thích dọn đi đâu thì tuỳ
+# Thử kết quả ở http://127.0.0.1:5000/get_fer?image=hahaha
+class GetFer(Resource):
+    def get(self):
+        image = request.args.get('image', 'no model')
+        response = {
+        	'success': True,
+        	'predicted_label': image + ' ---- ' + str(solver.__str__)
+        }
+        return response
+
+
+api = Api(app)
+api.add_resource(GetFer, '/get_fer')
+
 
 if DEBUG:
     app.logger.info('DEBUG       = ' + str(DEBUG))

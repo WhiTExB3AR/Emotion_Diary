@@ -11,7 +11,7 @@
 
 
 
-# xem tiếp ngày hôm sau
+# link tham khảo (xem tiếp ngày hôm sau)
 
 # load trained model pytorch
 # https://www.youtube.com/watch?v=9L9jEOwRrCg&list=PLqnslRFeH2UrcDBWF5mfPGpqQDSta6VK4&index=17

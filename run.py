@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
 
+
 # ------- Start: B3AR config code -------
 import os
 import sys
@@ -7,6 +8,8 @@ from flask import request
 from flask_restful import Resource, Api
 from apps.home.util import solver
 # ------- End: B3AR config code -------
+
+
 
 from flask_migrate import Migrate
 from sys import exit
@@ -21,11 +24,15 @@ DEBUG = config('DEBUG', default=True, cast=bool)
 # The configuration
 get_config_mode = 'Debug' if DEBUG else 'Production'
 
+
+
 # ------- Start: B3AR config code -------
 # TODO Load Model
 # E load model hoặc solver gì đó ở bên util rồi gọi ở đây
 # ->solver
 # ------- End: B3AR config code -------
+
+
 
 try:
 
@@ -37,6 +44,8 @@ except KeyError:
 
 app = create_app(app_config)
 Migrate(app, db)
+
+
 
 # ------- Start: B3AR config code -------
 # TODO đây là code mẫu tạo rest api, tạm để ở đây e thích dọn đi đâu thì tuỳ
@@ -55,6 +64,8 @@ class GetFer(Resource):
 api = Api(app)
 api.add_resource(GetFer, '/get_fer')
 # ------- End: B3AR config code -------
+
+
 
 if DEBUG:
     app.logger.info('DEBUG       = ' + str(DEBUG))

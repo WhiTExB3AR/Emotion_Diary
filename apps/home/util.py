@@ -9,9 +9,9 @@ import sys
 sys.path += ['./apps/fer_model/']
 
 import argparse
-from fer_model.solvers import create_solver
-from fer_model.solvers.res_cls_solver import ResFaceClsSolver
-from fer_model.options import Options
+from solvers import create_solver
+from solvers.res_cls_solver import ResFaceClsSolver
+from options import Options
 
 
 # TODO em chỉnh lại arg ở đây

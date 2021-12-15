@@ -7,12 +7,13 @@ from flask_login import login_required
 from jinja2 import TemplateNotFound
 
 # ------- Start: B3AR config code -------
-from flask import Response, redirect, url_for
+from flask import Response, redirect, url_for, flash
 from apps import db
 from apps.authentication.models import Users, Diaries, Emotions
 from apps.home.camera import gen_frames
 from apps.home.forms import CreateForm, ViewForm
 import datetime
+from werkzeug.utils import secure_filename
 # ------- End: B3AR config code -------
 
 @blueprint.route('/index')
@@ -28,6 +29,26 @@ def video_feed():
 
     res = Response(gen_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
     return res
+
+# @blueprint.route('/upload_image', methods=['GET', 'POST'])
+# def upload_file():
+#     if request.method == 'POST':
+#         # check if the post request has the file part
+#         if 'file' not in request.files:
+#             flash('No file part')
+#             return redirect(request.url)
+#         file = request.files['file']
+#         # If the user does not select a file, the browser submits an
+#         # empty file without a filename.
+#         if file.filename == '':
+#             flash('No selected file')
+#             return redirect(request.url)
+#         if file:
+#             filename = secure_filename(file.filename)
+#             # file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+#             return filename
+#             # return redirect(url_for('download_file', name=filename))
+#     return 'upload-image'
 
 @blueprint.route('/new_diary', methods=['GET', 'POST'])
 def new_diary():

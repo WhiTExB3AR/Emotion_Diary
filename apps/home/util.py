@@ -1,8 +1,29 @@
 # For using checkpoint of trained FMPN model to predict for web app
 
 
+# Đây là trick để có thể copy code từ project PreProduceCode-FMPN-FER vào fer_model
+# Nếu ko, phải chỉnh lại path của từng file bên trong fer_model
+# E code tiếp nếu thiếu file nào thì copy qua tiếp
+# Chỗ khác nếu muốn import thì tương tự thêm 2 dòng code này vào
+import sys
+sys.path += ['./apps/fer_model/']
+
+import argparse
+from fer_model.solvers import create_solver
+from fer_model.solvers.res_cls_solver import ResFaceClsSolver
+from fer_model.options import Options
 
 
+# TODO em chỉnh lại arg ở đây
+# A thấy nó báo lỗi visdom, mình ko cần nó nữa, e chỉnh code lại sao cho nó khỏi báo nữa
+parser = Options().initialize()
+opt = parser.parse_args(['--mode', 'test', '--data_root', 'datasets/CKPlus', 
+	'--test_csv', 'test_ids_1.csv', '--gpu_ids', '0', '--model', 'res_cls',
+	'--solver', 'res_cls', '--batch_size', '2',
+	'--load_model_dir', 'ckpts/CKPlus/res_cls/fold_8/211026_072450',
+	'--load_epoch', '100'])
+
+solver = create_solver(opt)
 
 
 

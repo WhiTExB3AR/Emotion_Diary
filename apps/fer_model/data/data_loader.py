@@ -7,8 +7,6 @@ import pickle
 import torchvision.transforms as transforms
 
 from .ckplus_res import CKPlusResDataset
-from .mmi_res import MMIResDataset
-from .affectnet import AffectNetDataset
 from .base_dataset import BaseDataset
 from .userdata import UserDataset
 from .JAFFE_dataset import JAFFEDataset

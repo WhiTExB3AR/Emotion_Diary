@@ -75,7 +75,7 @@ class BaseSolver(object):
 
     def init_test_setting(self, opt):
         # hard code some params
-        # opt.visdom_display_id = 0
+        opt.visdom_display_id = 0
         opt.serial_batches = True
 
         dataset = create_dataloader(opt)

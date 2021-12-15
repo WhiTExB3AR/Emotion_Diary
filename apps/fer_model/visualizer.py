@@ -19,22 +19,22 @@ class Visualizer(object):
 
     def initialize(self, opt):
         self.opt = opt
-        # self.vis_saved_dir = os.path.join(self.opt.ckpt_dir, 'vis_pics')
-        # if not os.path.isdir(self.vis_saved_dir):
-        #     os.makedirs(self.vis_saved_dir)
+        self.vis_saved_dir = os.path.join(self.opt.ckpt_dir, 'vis_pics')
+        if not os.path.isdir(self.vis_saved_dir):
+            os.makedirs(self.vis_saved_dir)
         plt.switch_backend('agg')
         self.plt_color = ['b', 'g', 'r', 'c', 'm', 'y', 'k']
 
-        # self.display_id = self.opt.visdom_display_id
-        # if self.display_id > 0:
-        #     import visdom 
-        #     self.ncols = 4
-            # # self.vis = visdom.Visdom(server="http://localhost", port=self.opt.visdom_port, env=self.opt.visdom_env)
-            # self.vis = visdom.Visdom(server=self.opt.visdom_ip, port=self.opt.visdom_port, env=self.opt.visdom_env)
+        self.display_id = self.opt.visdom_display_id
+        if self.display_id > 0:
+            import visdom 
+            self.ncols = 4
+            # self.vis = visdom.Visdom(server="http://localhost", port=self.opt.visdom_port, env=self.opt.visdom_env)
+            self.vis = visdom.Visdom(server=self.opt.visdom_ip, port=self.opt.visdom_port, env=self.opt.visdom_env)
 
-    # def throw_visdom_connection_error(self):
-    #     print('\n\nno visdom server.')
-    #     exit(1)
+    def throw_visdom_connection_error(self):
+        print('\n\nno visdom server.')
+        exit(1)
 
     def print_losses_info(self, info_dict):
         msg = '[{}][Epoch: {:0>3}/{:0>3}; Images: {:0>4}/{:0>4}; Time: {:.3f}s/Batch({}); LR: {:.7f}] '.format(

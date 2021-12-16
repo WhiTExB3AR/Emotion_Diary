@@ -1,23 +1,3 @@
-import torch
-import os
-import csv # for write filename img to csv file
-from PIL import Image
-import random
-import numpy as np
-import pickle
-import torchvision.transforms as transforms
-
-from apps.fer_model.data.base_dataset import BaseDataset
-
-from apps.fer_model.data.data_loader import create_dataloader
-from apps.fer_model.data.ckplus_res import CKPlusResDataset
-
-from apps.fer_model.data.userdata import UserDataset
-from apps.fer_model.data.JAFFE_dataset import JAFFEDataset
-
-
-
-
 # load image
 
 # load checkpoint

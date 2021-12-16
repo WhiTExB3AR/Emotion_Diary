@@ -13,6 +13,7 @@ from apps.authentication.models import Users, Diaries, Emotions
 from apps.home.camera import gen_frames
 from apps.home.forms import CreateForm, ViewForm
 import datetime
+import pytz # libraby for python timezone
 # ------- End: B3AR config code -------
 
 @blueprint.route('/index')
@@ -35,10 +36,13 @@ def new_diary():
     # validate form
     if form.validate_on_submit():
         post_datetime = form.post_datetime.data
-        form.post_datetime.data = ''
+        form.post_datetime.data = datetime.now(pytz.timezone('Asia/Saigon')) # 'Etc/GMT+7'
+        fmt = '%Y-%m-%d %H:%M:%S'
+
+
 
     return render_template('home/index.html', 
-                            post_datetime = post_datetime, 
+                            # post_datetime = post_datetime, 
                             form = form)
 
     # create_new_diary = CreateForm(request.form)

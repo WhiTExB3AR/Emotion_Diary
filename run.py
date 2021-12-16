@@ -43,7 +43,8 @@ Migrate(app, db)
 # TODO đây là code mẫu tạo rest api, tạm để ở đây e thích dọn đi đâu thì tuỳ
 # Thử kết quả ở http://127.0.0.1:5000/get_fer?image=hahaha
 
-class GetFer(Resource):
+
+class GetFer(Resource): # class model/chema
     def get(self):
         image = request.args.get('image', 'no model')
         response = {
@@ -54,7 +55,7 @@ class GetFer(Resource):
 
 
 api = Api(app)
-api.add_resource(GetFer, '/get_fer')
+api.add_resource(GetFer, '/get_fer') # endpoints and resources
 # ------- End: B3AR config code -------
 
 if DEBUG:

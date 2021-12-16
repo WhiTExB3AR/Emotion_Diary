@@ -42,6 +42,25 @@ solver = create_solver(opt)
 # https://imadelhanafi.com/posts/train_deploy_ml_model/
 # https://cloud.google.com/ai-platform/prediction/docs/getting-started-pytorch-container
 
+# https://flask-socketio.readthedocs.io/en/latest/
+# https://alwaysai.co/blog/build-your-own-video-streaming-server-with-flask-socketio
+# https://newbedev.com/how-to-stream-live-video-frames-from-client-to-flask-server-and-back-to-the-client
+# https://github.com/AhmedBhati/video-streaming-with-flask-socketio
+# https://stackoverflow.com/questions/66359505/stream-video-to-flask-app-using-flask-socketio
+# https://pyshine.com/Online-Video-Processing-From-Client-Camera/
+# https://pretagteam.com/question/socket-stream-webcam-video-with-flask-to-webpage
+# https://josephsamela.github.io/flask-socketio-chartist.js/
+# https://flask.palletsprojects.com/en/2.0.x/patterns/fileuploads/
+# https://pytorch.org/docs/stable/data.html
+# https://discuss.pytorch.org/t/how-to-classify-single-image-using-loaded-net/1411
+# https://stackoverflow.com/questions/41340296/how-can-pillow-open-uploaded-image-file-from-stringio-directly
+# https://github.com/qubvel/segmentation_models.pytorch/issues/371
+# http://machinelearningkorea.com/2020/01/24/predict-single-image-with-pytorch-%ED%8C%8C%EC%9D%B4%ED%86%A0%EC%B9%98%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EC%8B%B1%EA%B8%80-%EC%9D%B4%EB%AF%B8%EC%A7%80-%EC%98%88%EC%B8%A1/
+# https://newbedev.com/keras-model-predict-for-a-single-image
+# https://docs.microsoft.com/en-us/windows/ai/windows-ml/tutorials/pytorch-train-model
+# https://towardsdatascience.com/how-to-train-an-image-classifier-in-pytorch-and-use-it-to-perform-basic-inference-on-single-images-99465a1e9bf5
+
+
 # deploy
 # https://www.youtube.com/watch?v=i3RMlrx4ol4
 # https://www.youtube.com/watch?v=pMIwu5FwJ78

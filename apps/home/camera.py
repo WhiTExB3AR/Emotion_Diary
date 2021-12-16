@@ -23,7 +23,7 @@ def gen_frames():  # generate frame by frame from camera
             break
         else:
             
-            # Line 15
+            # Move to line 15
             # with current_app.app_context():
             # detector = g.get('face_detector', None)
             # if not detector:

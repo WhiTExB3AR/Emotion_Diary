@@ -1,3 +1,6 @@
+import sys
+sys.path += ['./apps/fer_model/']
+
 from .base_model import BaseModel
 from .res_baseline import ResGenModel
 from .res_cls import ResClsModel

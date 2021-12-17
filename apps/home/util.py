@@ -1,5 +1,13 @@
 # For using checkpoint of trained FMPN model to predict for web app
 
+import torch
+import os
+import csv # for write filename img to csv file
+from PIL import Image
+import random
+import numpy as np
+import pickle
+import torchvision.transforms as transforms
 
 # Đây là trick để có thể copy code từ project PreProduceCode-FMPN-FER vào fer_model
 # Nếu ko, phải chỉnh lại path của từng file bên trong fer_model
@@ -17,13 +25,28 @@ from options import Options
 # TODO em chỉnh lại arg ở đây
 # A thấy nó báo lỗi visdom, mình ko cần nó nữa, e chỉnh code lại sao cho nó khỏi báo nữa
 parser = Options().initialize()
-opt = parser.parse_args(['--mode', 'test', '--data_root', 'datasets/CKPlus', 
-	'--test_csv', 'test_ids_1.csv', '--gpu_ids', '0', '--model', 'res_cls',
-	'--solver', 'res_cls', '--batch_size', '2',
-	'--load_model_dir', 'ckpts/CKPlus/res_cls/fold_8/211026_072450',
-	'--load_epoch', '100'])
+
+opt = parser.parse_args(['--mode', 'test', 
+							'--data_root', 'snapshots',
+							'--test_csv', 'run_ids_0.csv', 
+							'--gpu_ids', '0', 
+							'--model', 'res_cls',
+							'--solver', 'res_cls', 
+							'--batch_size', '1',
+							'--load_model_dir', 'ckpts/CKPlus/res_cls/fold_0/211122_093155',
+							'--load_epoch', '100'])
+
+# opt = parser.parse_args(['--mode', 'test',
+# 						'--image_dir', 'snapshots', 
+# 						'--gpu_ids', '0', 
+# 						'--model', 'res_cls',
+# 						'--solver', 'res_cls', 
+# 						'--batch_size', '1',
+# 						'--load_model_dir', 'ckpts/211026_072450',
+# 						'--load_epoch', '100'])
 
 solver = create_solver(opt)
+solver.run_solver()
 
 
 
@@ -41,6 +64,11 @@ solver = create_solver(opt)
 # https://developers.facebook.com/blog/post/2020/08/03/connecting-web-app-pytorch-model-using-amazon-sagemaker/
 # https://imadelhanafi.com/posts/train_deploy_ml_model/
 # https://cloud.google.com/ai-platform/prediction/docs/getting-started-pytorch-container
+# https://www.encora.com/insights/how-to-create-an-api-and-web-applications-with-flask
+# https://towardsdatascience.com/creating-restful-apis-using-flask-and-python-655bad51b24
+# https://www.askpython.com/python-modules/flask/flask-rest-api
+# https://www.sqlshack.com/create-rest-apis-in-python-using-flask/
+# https://www.kdnuggets.com/2021/05/building-restful-apis-flask.html
 
 # deploy
 # https://www.youtube.com/watch?v=i3RMlrx4ol4

@@ -1,3 +1,6 @@
+import sys
+sys.path += ['./apps/fer_model/']
+
 import torch
 import os
 import csv # for write filename img to csv file
@@ -14,20 +17,29 @@ class BaseDataset(torch.utils.data.Dataset):
     def __init__(self):
         super(BaseDataset, self).__init__()
 
+    # ------- Start: B3AR config code -------
     def name(self):
         return os.path.basename(self.opt.data_root.strip('/')) # strip('/') xoá dấu '/' ở đầu và đuôi của data_root
+    # ------- End: B3AR config code -------
 
     def initialize(self, opt):
         self.opt = opt
 
+        # ------- Start: B3AR config code -------
         self.imgs_dir = os.path.join(self.opt.data_root, self.opt.imgs_dir) # opt.data_root = datasets/CKPlus và opt.imgs_dir = imgs -> imgs_dir = datasets/CKPlus/imgs
+        # ------- End: B3AR config code -------
+        # self.imgs_dir = os.path.join(self.opt.imgs_dir)
+        # ------- Start: B3AR config code -------
         filename = self.opt.train_csv if self.opt.mode == "train" else self.opt.test_csv # lấy tên của file img trong file csv -> filename = test_ids_8.csv
         self.cur_fold = os.path.splitext(filename)[0].split('_')[-1] # lấy đuôi id của file csv, vd: test_ids_8.csv -> cur_fold = 8
         self.imgs_name_file = os.path.join(self.opt.data_root, filename) # lấy tất cả các tên file img trong record của file csv -> imgs_name_file = datasets/CKPlus/test_ids_8.csv
         self.imgs_path = self.make_dataset(self.imgs_dir, self.imgs_name_file) # xem cách hoạt động bên line 35 ckplus_res.py hoặc line 23 affecnet.py -> imgs_path = duyệt qua từng dòng ảnh trên file csv
+        # ------- End: B3AR config code -------
 
+    # ------- End: B3AR config code -------
     def make_dataset(self, imgs_dir, imgs_name_file):
         return None
+    # ------- End: B3AR config code -------
 
     def load_dict(self, pkl_path):
         saved_dict = {}

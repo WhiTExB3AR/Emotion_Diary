@@ -1,3 +1,6 @@
+import sys
+sys.path += ['./apps/fer_model/']
+
 import torch
 import os
 from PIL import Image

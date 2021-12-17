@@ -2,7 +2,8 @@
 Created on Dec 14, 2018
 @author: Yuedong Chen
 """
-
+import sys
+sys.path += ['./apps/fer_model/']
 
 from .base_solver import BaseSolver 
 from sklearn.metrics import confusion_matrix, accuracy_score
@@ -60,6 +61,7 @@ class ResFaceClsSolver(BaseSolver):
         # real_cls_list = []
         # ------- End: Start: B3AR config code: Calculate accuracy for test -------
         pred_cls_list = []
+        pred_cls = []
         for idx, batch in enumerate(dataset):
             with torch.no_grad():
                 model.feed_batch(batch)
@@ -88,7 +90,6 @@ class ResFaceClsSolver(BaseSolver):
         # print("=======> ", msg)
         # ------- End: Start: B3AR config code: Calculate accuracy for test -------
 
-        print("**********")
 
         # print("Real label list: ", real_cls_list)
         # for i in range(len(real_cls_list)):
@@ -96,11 +97,8 @@ class ResFaceClsSolver(BaseSolver):
 
         # print("\n")
 
-        print("Predict label list: ", pred_cls_list)
-        for i in range(len(pred_cls_list)):
-            print("[", i + 1, "]", pred_cls_list[i], self.CK_FACIAL_EXPRESSION[pred_cls_list[i]])
+        return pred_cls_list
 
-        print("**********")
     
         # ------- Start: B3AR config code: Calculate accuracy for test -------
         # return acc, msg, confusion_mat, results_dict # không có nhu cầu in ra về độ chính xác

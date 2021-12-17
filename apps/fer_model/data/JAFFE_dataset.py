@@ -1,3 +1,6 @@
+import sys
+sys.path += ['./apps/fer_model/']
+
 from .base_dataset import BaseDataset
 import torch
 import os

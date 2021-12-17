@@ -1,3 +1,6 @@
+import sys
+sys.path += ['./apps/fer_model/']
+
 import matplotlib.pyplot as plt
 import seaborn as sn
 import pandas as pd

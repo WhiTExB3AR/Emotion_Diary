@@ -2,6 +2,8 @@
 Created on Dec 13, 2018
 @author: Yuedong Chen
 """
+import sys
+sys.path += ['./apps/fer_model/']
 
 from data import create_dataloader
 from model import create_model
@@ -17,8 +19,10 @@ class BaseSolver(object):
 
     def initialize(self, opt):
         self.opt = opt
-        self.visual = Visualizer()
-        self.visual.initialize(self.opt)
+        # ------- Start: B3AR config code -------
+        # self.visual = Visualizer()
+        # self.visual.initialize(self.opt)
+        # ------- End: B3AR config code -------
 
         self.CK_FACIAL_EXPRESSION = ['anger', 'contempt', 'disgust', 'fear', 'happy', 'sadness', 'surprise']
         self.OC_FACIAL_EXPRESSION = ['Anger', 'Disgust', 'Fear', 'Happiness', 'Sadness', 'Surprise']
@@ -28,7 +32,7 @@ class BaseSolver(object):
         if self.opt.mode == "train":
             self.train_networks()
         else:
-            self.test_networks(self.opt)
+            return self.test_networks(self.opt)
 
     def train_networks(self):
         # init train setting

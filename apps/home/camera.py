@@ -34,7 +34,12 @@ def gen_frames():  # generate frame by frame from camera
             for (x, y, w, h) in faces:
                 # print("[INFO] Detected face...")
                 cv2.rectangle(frame, (x, y), (x+w, y+h), (255, 0, 255), 2)
-            
+                crop_face = gray[y:y+h, x:x+w] # cut only face
+            # # cut image
+            # for (x, y, w, h) in faces:
+            #     print(x,y,w,h)
+            #     crop_face = gray[y:y+h, x:x+w]
+            ####################################################################################################
             # encode OpenCV raw frame to jpg and displaying it
             ret, jpeg = cv2.imencode('.jpg', frame) 
             frame = jpeg.tobytes()

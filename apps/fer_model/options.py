@@ -1,3 +1,6 @@
+import sys
+sys.path += ['./apps/fer_model/']
+
 import argparse
 import torch
 import os
@@ -30,12 +33,14 @@ class Options(object):
         # parser.add_argument('--visdom_display_id', type=int, default=1, help='set value larger than 0 to display with visdom.')
         # parser.add_argument('--visdom_ip', type=str, default="http://localhost", help='visdom IP from ngrok.')
         
-        parser.add_argument('--data_root', required=True, help='paths to data set.')
+        parser.add_argument('--data_root',default="apps/fer_model/images", required=True, help='paths to data set.')
         parser.add_argument('--train_csv', type=str, default="train_ids.csv", help='train images paths')
+        parser.add_argument('--test_csv', type=str, default="run_ids_0.csv", help='test images paths')
         parser.add_argument('--imgs_dir', type=str, default="imgs", help='path to image')
+
+        # parser.add_argument('--imgs_path', type=str, default="imgs", help='path to img')
         parser.add_argument('--imgs_res_dir', type=str, default="imgs_res", help='path to average residual image')
         parser.add_argument('--cls_pkl', type=str, default="emotion_labels.pkl", help='emotion labels pickle dictionary.')
-        parser.add_argument('--test_csv', type=str, default="test_ids.csv", help='test images paths')
         parser.add_argument('--use_data_augment', action='store_true', help='if specified, input images in order.')
         parser.add_argument('--serial_batches', action='store_true', help='if specified, input images in order.')
         parser.add_argument('--n_threads', type=int, default=12, help='number of workers to load data.')
@@ -46,7 +51,7 @@ class Options(object):
         
         parser.add_argument('--gpu_ids', type=str, default='0', help='gpu ids, eg. 0,1,2; -1 for cpu.')
         parser.add_argument('--ckpt_dir', type=str, default='./ckpts', help='directory to save check points.')
-        parser.add_argument('--load_model_dir', type=str, default='./checkpoints', help='directory to load pretrained model.')
+        parser.add_argument('--load_model_dir', type=str, default='apps/fer_model/ckpts/CKPlus/res_cls/fold_0/211122_093155', help='directory to load pretrained model.')
         parser.add_argument('--load_epoch', type=int, default=0, help='load epoch; 0: do not load')
         
         parser.add_argument('--img_nc', type=int, default=3, help='image number of channel')
@@ -92,7 +97,10 @@ class Options(object):
 
         # update checkpoint dir
         if opt.mode == 'train':
+            # ------- Start: B3AR config code -------
             dataset_name = os.path.basename(opt.data_root.strip('/'))  
+            # ------- End: B3AR config code -------
+            # image_dir = os.path.basename(opt.imgs_dir.strip('/'))
                 # basename() dùng để lấy đối tượng là tên file cuối trong đường dẫn 
                 # dirname() dùng để lấy đối tượng là đường dẫn cùng thư mục mẹ của file cuối trong đường dẫn
                 # vd:   path = './PreProduceCode-FMPN-FER/datasets/CKPlus/train_ids_0.csv'
@@ -102,7 +110,9 @@ class Options(object):
                 # vd: ./PreProduceCode-FMPN-FER/datasets/CKPlus/ -> PreProduceCode-FMPN-FER/datasets/CKPlus
             # /datasets/CKPlus/ -> datasets/CKPlus
 
+            # ------- Start: B3AR config code -------
             tmp_list = os.path.splitext(opt.train_csv)[0].split('_') 
+            # ------- End: B3AR config code -------
                 # splitext() để chia filename thành 2 phần trước và sau dấu '.' 
                 # Lưu ý: chỉ tách đối số được chỉ định thành hai phần tại vị trí dấu chấm cuối cùng bên phải
                     # vd:   path = './PreProduceCode-FMPN-FER/datasets/CKPlus/train_ids_0.csv'
@@ -139,9 +149,14 @@ class Options(object):
             # print(os.path.splitext(opt.train_csv)[0]) -> train_ids_0 = aka
             # print(aka.split('_')) ->  ['train', 'ids', '0'] = tmp_list
 
+            # ------- Start: B3AR config code -------
             fold_id = "." if len(tmp_list) < 3 else ("fold_%s" % tmp_list[2])
+            # ------- End: B3AR config code -------
             # tmp_list[2] = 0 -> "fold_%s" % tmp_list[2] = fold_0
+            # ------- Start: B3AR config code -------
             opt.ckpt_dir = os.path.join(opt.ckpt_dir, dataset_name, opt.model, fold_id, opt.name)
+            # ------- End: B3AR config code -------
+            opt.ckpt_dir = os.path.join(opt.ckpt_dir, opt.name)
             # ckpt_dir = default='./ckpts' -> ./ckpts/
             if not os.path.exists(opt.ckpt_dir): # kiểm tra đã có folder tên ckpts chưa, nếu chưa thì tạo makedirs("./ckpts") -> PreProduceCode-FMPN-FER/ckpts
                 os.makedirs(opt.ckpt_dir)
@@ -155,6 +170,7 @@ class Options(object):
                 opt.gpu_ids.append(cur_id)
         if len(opt.gpu_ids) > 0:
             torch.cuda.set_device(opt.gpu_ids[0])
+        #TODO set gpu = Node
 
         # set seed 
         if opt.lucky_seed == 0:

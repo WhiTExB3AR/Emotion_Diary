@@ -2,6 +2,8 @@
 Created on Dec 13, 2018
 @author: Yuedong Chen
 """
+import sys
+sys.path += ['./apps/fer_model/']
 
 from .base_solver import BaseSolver 
 import time

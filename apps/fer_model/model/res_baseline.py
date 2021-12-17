@@ -2,6 +2,8 @@
 Created on Dec 12, 2018
 @author: Yuedong Chen
 """
+import sys
+sys.path += ['./apps/fer_model/']
 
 import torch
 import os

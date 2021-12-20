@@ -67,8 +67,6 @@ def new_diary():
     # else:
     #     return redirect(url_for('home_blueprint.index'))
 
-
-
 # ------- End: B3AR config code -------
 
 @blueprint.route('/<template>')

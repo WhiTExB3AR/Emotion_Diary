@@ -6,7 +6,7 @@ import os
 import sys
 from flask import request
 from flask_restful import Resource, Api
-from apps.home.util import solver
+from apps.home.predict import solver
 # ------- End: B3AR config code -------
 
 from flask_migrate import Migrate
@@ -24,8 +24,10 @@ get_config_mode = 'Debug' if DEBUG else 'Production'
 
 # ------- Start: B3AR config code -------
 # TODO Load Model
-# E load model hoặc solver gì đó ở bên util rồi gọi ở đây
+# E load model hoặc solver gì đó ở bên predict rồi gọi ở đây
 # ->solver
+
+
 # ------- End: B3AR config code -------
 
 try:

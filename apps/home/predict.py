@@ -18,7 +18,7 @@ from options import Options
 # A thấy nó báo lỗi visdom, mình ko cần nó nữa, e chỉnh code lại sao cho nó khỏi báo nữa
 parser = Options().initialize()
 opt = parser.parse_args(['--mode', 'test', 
-						'--data_root', 'datasets/CKPlus', 
+						'--data_root', 'images', 
 						'--test_csv', 'test_ids_1.csv', 
 						'--model', 'res_cls',
 						'--solver', 'res_cls', '--batch_size', '2',
@@ -27,7 +27,7 @@ opt = parser.parse_args(['--mode', 'test',
 						'--gpu_ids', '-1',])
 
 solver = create_solver(opt)
-
+# solver.run_solver(opt)
 
 
 

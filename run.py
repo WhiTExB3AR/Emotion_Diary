@@ -24,10 +24,10 @@ get_config_mode = 'Debug' if DEBUG else 'Production'
 
 # ------- Start: B3AR config code -------
 # TODO Load Model
-# E load model hoặc solver gì đó ở bên predict rồi gọi ở đây
+# E load model hoặc solver gì đó ở bên predict.py (util.py) rồi gọi ở đây
 # ->solver
 
-
+# a = solver.create_solver()
 # ------- End: B3AR config code -------
 
 try:
@@ -46,7 +46,7 @@ Migrate(app, db)
 # Thử kết quả ở http://127.0.0.1:5000/get_fer?image=hahaha
 
 
-class GetFer(Resource): # class model/chema
+class GetFer(Resource): # class model/schema
     def get(self):
         image = request.args.get('image', 'no model')
         response = {

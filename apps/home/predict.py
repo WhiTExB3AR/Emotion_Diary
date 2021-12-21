@@ -30,11 +30,6 @@ solver = create_solver(opt)
 # solver.run_solver(opt)
 
 
-
-
-
-
-
 # link tham khảo (xem tiếp ngày hôm sau)
 
 # load trained model pytorch

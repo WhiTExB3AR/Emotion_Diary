@@ -7,7 +7,7 @@ from flask_login import login_required
 from jinja2 import TemplateNotFound
 
 # ------- Start: B3AR config code -------
-from flask import Response, redirect, url_form, flash
+from flask import Response, redirect, url_for, flash
 from apps import db
 from apps.authentication.models import Users, Diaries, Emotions
 from apps.home.camera import gen_frames

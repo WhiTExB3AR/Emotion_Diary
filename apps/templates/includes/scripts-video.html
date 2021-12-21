@@ -13,6 +13,7 @@
     var btnStart = document.querySelector("#start-camera");
     var btnStop = document.querySelector("#stop-camera");
     var btnCapture = document.querySelector("#click-photo");
+    var btnAnalyze = document.querySelector("#click-analyze");
 
     // The stream & capture
     var videoInput = document.querySelector("#cam-video");
@@ -50,11 +51,31 @@
       if( null != cameraStream ) {
         var ctx = canvasOutput.getContext( '2d' );
         var img = new Image(); // Create new img element
-        ctx.drawImage( videoInput, 0, 0, canvasOutput.width, canvasOutput.height );
+        ctx.drawImage( videoInput, 0, 0, canvasOutput.width, canvasOutput.height ); // 1. script lay anh
         img.src		= canvasOutput.toDataURL( "image/jpeg" ); // Set source path
         img.width	= 240;
       }
+      if ( btnAnalyze.style.visibility == "hidden" ) {
+        btnAnalyze.style.visibility = "visible"
+      } 
     }
+
+    // 2. jquery post image
+    $(function() {
+      $('#click-analyze').click(function() {
+        $.ajax({
+          url: '/handle_image',
+          data: $('img').attr('src'),
+          type: 'POST',
+          success: function(response) {
+            console.log(response);
+          },
+          error: function(error) {
+            console.log(error);
+          }
+        });
+      });
+    })
    
     // Stop Streaming
     function stopStreaming() {
@@ -66,17 +87,5 @@
       }
     }
 
-// 1. script lay anh
-
-// 2. jquery post image
-    $.ajax({
-      type: "POST",
-      url: "http://",
-      dataType: "image/jpeg",
-      success: function() {
-
-      },
-      dataType: dataType
-    })
 
 </script>

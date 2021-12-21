@@ -26,8 +26,6 @@ get_config_mode = 'Debug' if DEBUG else 'Production'
 # TODO Load Model
 # E load model hoặc solver gì đó ở bên predict.py (util.py) rồi gọi ở đây
 # ->solver
-
-# a = solver.create_solver()
 # ------- End: B3AR config code -------
 
 try:

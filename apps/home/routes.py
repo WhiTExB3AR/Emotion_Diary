@@ -14,6 +14,9 @@ from apps.home.camera import gen_frames
 from apps.home.forms import CreateForm, ViewForm
 import datetime
 import pytz # libraby for python timezone
+
+from PIL import Image
+from apps.fer_model.predict import transform_image, res_solver, model_options
 # ------- End: B3AR config code -------
 
 @blueprint.route('/index')
@@ -68,6 +71,34 @@ def new_diary():
     #     return redirect(url_for('home_blueprint.index'))
 
 # ------- End: B3AR config code -------
+
+@blueprint.route('/handle_image',methods=['POST'])
+def handle_image():
+    if 'file' not in request.files:
+        return 'no file'
+    file = request.files['file']
+    # If the user does not select a file, the browser submits an
+    # empty file without a filename.
+    if file.filename == '':
+        return 'file empty'
+    if file:
+        rgb_image=Image.open(file).convert('RGB')
+        l_image=Image.open(file).convert('L')
+        rgb_img = transform_image(rgb_image).unsqueeze(0)
+        l_img=transform_image(l_image).unsqueeze(0)
+        batch={
+            'img_tensor': rgb_img,
+            'img_tensor_gray': l_img,
+            'img_res_tensor': l_img,
+            'img_path': 'flask'
+        }
+
+        rs=res_solver.test_networks(model_options, batch)
+
+        return {
+            'result':rs.tolist()
+        }
+
 
 @blueprint.route('/<template>')
 @login_required

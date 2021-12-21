@@ -73,7 +73,7 @@ def new_diary():
 
 # ------- End: B3AR config code -------
 
-@blueprint.route('/handle_image',methods=['POST'])
+@blueprint.route('/handle_image', methods=['POST'])
 def handle_image():
     if 'file' not in request.files:
         return 'no file'

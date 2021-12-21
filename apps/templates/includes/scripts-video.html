@@ -1,4 +1,12 @@
 <script>
+
+    $(document).ready(function() {
+          // Javascript method's body can be found in assets/demos.js
+          demo.initDashboardPageCharts();
+
+
+    });
+    
     
     // https://html5.tutorials24x7.com/blog/how-to-capture-image-from-camera
     // The buttons to start & stop stream and to capture the image
@@ -57,118 +65,5 @@
         cameraStream = null;
       }
     }
-    
-    // // https://docs.opencv.org/4.5.4/df/d6c/tutorial_js_face_detection_camera.html
-    // // The buttons to start & stop stream and to capture the image
-    // var btnStart = document.querySelector("#start-camera");
-    // var btnStop = document.querySelector("#stop-camera");
-    // var btnCapture = document.querySelector("#click-photo");
-
-    // // The stream & capture
-    // var videoInput = document.querySelector("#cam-video");
-    // // var canvasOutput = document.querySelector("#canvas-video");
-
-    // // The video stream
-    // var cameraStream = null;
-
-    // // Attach listeners
-    // btnStart.addEventListener( "click", startStreaming );
-    // btnStop.addEventListener( "click", stopStreaming );
-    // btnCapture.addEventListener( "click", captureSnapshot );
-
-    // // Start Streaming
-    // function startStreaming() {
-    //   var mediaSupport = 'mediaDevices' in navigator;
-    //   if( mediaSupport && null == cameraStream ) {
-    //     navigator.mediaDevices.getUserMedia( { video: true } )
-    //     .then( function( stream ) {
-    //       cameraStream = stream;
-    //       videoInput.srcObject = stream;
-    //       videoInput.play();
-    //     })
-    //     .catch( function( err ) {
-    //       console.log( "Unable to access camera: " + err );
-    //     });
-    //   }
-    //   else {
-    //     alert( 'Your browser does not support media devices.' );
-    //     return;
-    //   }
-    // }
-
-
-    // let canvasFrame = document.getElementById(canvas-video); // canvasFrame is the id of <canvas>
-    // let canvas = document.getElementById(canvas-video1);
-
-    // let src = new cv.Mat(videoInput.height, videoInput.width, cv.CV_8UC4);
-    // let dst = new cv.Mat(videoInput.height, videoInput.width, cv.CV_8UC1);
-    // let gray = new cv.Mat();
-    // let cap = new cv.VideoCapture(videoInput);
-    // let faces = new cv.RectVector();
-    // let classifier = new cv.CascadeClassifier();
-
-    // classifier.load('../../home/haarcascade/haarcascade_frontalface_default.xml');
-
-    // const FPS = 30;
-    // function captureSnapshot() {
-    //   var mediaSupport = 'mediaDevices' in navigator;
-    //   if( mediaSupport && null == cameraStream ) {
-    //     navigator.mediaDevices.getUserMedia( { video: true } )
-    //     .then( function( stream ) {
-    //       cameraStream = stream;
-    //       videoInput.srcObject = stream;
-    //       videoInput.play();
-    //     })
-    //     .catch( function( err ) {
-    //       console.log( "Unable to access camera: " + err );
-    //     });
-    //   }
-    //   else {
-    //     alert( 'Your browser does not support media devices.' );
-    //     return;
-    //   }
-
-    //   if( null != cameraStream ) {
-    //     let begin = Date.now();
-    //     cap.read(src);
-    //     cv.cvtColor(src, dst, cv.COLOR_RGBA2GRAY);
-    //     src.copyTo(dst);
-    //     cv.cvtColor(dst, gray, cv.COLOR_RGBA2GRAY, 0);
-    //     // detect faces.
-    //     classifier.detectMultiScale(gray, faces, 1.1, 3, 0);
-    //     // draw faces.
-    //     for (let i = 0; i < faces.size(); ++i) {
-    //         let face = faces.get(i);
-    //         let point1 = new cv.Point(face.x, face.y);
-    //         let point2 = new cv.Point(face.x + face.width, face.y + face.height);
-    //         cv.rectangle(dst, point1, point2, [255, 0, 0, 255]);
-    //     }
-    //     cv.imshow('canvasFrame', dst);
-    //     // schedule next one.
-    //     let delay = 1000/FPS - (Date.now() - begin);
-    //     setTimeout(processVideo, delay);
-    //   }
-
-    // };
-
-    // // schedule first one.
-    // setTimeout(captureSnapshot, 0);
-    
-    // // Stop Streaming
-    // function stopStreaming() {
-    //   if( null != cameraStream ) {
-    //     var track = cameraStream.getTracks()[ 0 ];
-    //     track.stop();
-    //     videoInput.load();
-    //     cameraStream = null;
-    //     // clean and stop.
-    //     src.delete();
-    //     dst.delete();
-    //     gray.delete();
-    //     faces.delete();
-    //     classifier.delete();
-    //     return;
-    //   }
-    // }
 
 </script>

@@ -8,9 +8,11 @@
           <video id="cam-video" width="320" height="240" autoplay></video> <!--displays the camera stream-->
         </div>
         <div class="col">
-          <canvas id="canvas-video" width="320" height="240"></canvas> <!--gets the data url string of the image-->
+          <canvas id="canvas-video" method="POST" width="320" height="240"></canvas> <!--gets the data url string of the image-->
         </div>
     <!-- <div class="chart-area">
     </div> -->
 </div>
+<br>
+<button id="click-analyze" class="btn btn-primary" style="visibility: hidden;">Analyze</button> 
 <!-- End video with OpenCV -->

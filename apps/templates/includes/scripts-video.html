@@ -1,4 +1,15 @@
 <script>
+  let capturedImage=null;
+  const LABEL_VALUES={
+    0:'Anger',
+    1:'Contempt',
+    2:'Disgust',
+    3:'Fear',
+    4:'Happy',
+    5:'Sad',
+    6:'Surprise',
+    7:'Neutral'
+  };
 
     $(document).ready(function() {
           // Javascript method's body can be found in assets/demos.js
@@ -54,27 +65,69 @@
         ctx.drawImage( videoInput, 0, 0, canvasOutput.width, canvasOutput.height ); // 1. script lay anh
         img.src		= canvasOutput.toDataURL( "image/jpeg" ); // Set source path
         img.width	= 240;
+        img.name="test.jpg"
+        capturedImage=img;
       }
       if ( btnAnalyze.style.visibility == "hidden" ) {
         btnAnalyze.style.visibility = "visible"
       } 
     }
 
+    function b64toBlob(b64Data, contentType, sliceSize) {
+      contentType = contentType || '';
+      sliceSize = sliceSize || 512;
+
+      var byteCharacters = atob(b64Data); // window.atob(b64Data)
+      var byteArrays = [];
+
+      for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+          var slice = byteCharacters.slice(offset, offset + sliceSize);
+
+          var byteNumbers = new Array(slice.length);
+          for (var i = 0; i < slice.length; i++) {
+              byteNumbers[i] = slice.charCodeAt(i);
+          }
+
+          var byteArray = new Uint8Array(byteNumbers);
+
+          byteArrays.push(byteArray);
+      }
+
+      var blob = new Blob(byteArrays, {type: contentType});
+      return blob;
+  }
+
     // 2. jquery post image
     $(function() {
       $('#click-analyze').click(function() {
+        const block = capturedImage.src.split(";");
+        // Get the content type of the image
+        const contentType = block[0].split(":")[1];// In this case "image/gif"
+        // get the real base64 content of the file
+        const realData = block[1].split(",")[1];
+
+        // Convert it to a blob to upload
+        const blob = b64toBlob(realData, contentType);
+        let formData = new FormData();
+        formData.append('file',blob, 'test.jpg');
         $.ajax({
           url: '/handle_image',
-          data: $('img').attr('src'),
+          data: formData,
           type: 'POST',
+          processData: false,
+          contentType: false,
           success: function(response) {
             console.log(response);
+            const labelId = response.predicted_label;
+            const label = LABEL_VALUES[labelId];
+            $('#predicted_label').text(label);
+            $('#emotion_create_diary').val(label);
           },
           error: function(error) {
             console.log(error);
           }
         });
-      });
+      })
     })
    
     // Stop Streaming

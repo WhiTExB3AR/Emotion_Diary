@@ -159,12 +159,18 @@ def handle_image():
     if file.filename == '':
         return 'file empty'
     if file:
-        
-        upload_image= Image.open(file)
-        image_1 = face_detected(upload_image)
+        # ------- Start: Crop face -------
+        # upload_image= Image.open(file)
+        # image_1 = face_detected(upload_image)
 
-        rgb_image=image_1.convert('RGB')
-        l_image=image_1.convert('L')
+        # rgb_image=image_1.convert('RGB')
+        # l_image=image_1.convert('L')
+
+        print('File:', file)
+        
+        rgb_image=Image.open(file).convert('RGB')
+        l_image=Image.open(file).convert('L')
+        # ------- End: Crop face -------
         rgb_img = transform_image(rgb_image).unsqueeze(0)
         l_img=transform_image(l_image).unsqueeze(0)
         batch={

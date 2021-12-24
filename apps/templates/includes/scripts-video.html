@@ -25,6 +25,7 @@
     var btnStop = document.querySelector("#stop-camera");
     var btnCapture = document.querySelector("#click-photo");
     var btnAnalyze = document.querySelector("#click-analyze");
+    var myProgressBar = document.querySelector(".analyze-progress");
 
     // The stream & capture
     var videoInput = document.querySelector("#cam-video");
@@ -97,19 +98,47 @@
       return blob;
   }
 
+    // Animation for progress bar analyze button
+    function setButtonProgress(button, percent) {
+      const textElement = button.querySelector(".button__text");
+      // button.querySelector(".button__progress").style.width = `${percent}%`;
+      if (percent >= 0) {
+        textElement.textContent = button.dataset.progressText;
+      }
+
+      if (percent >= 100) {
+        textElement.textContent = button.dataset.completeText;
+      }
+    }
+
+    // Animation progress bar after press button analyze
+    function updateProgressBar(progressBar, value) {
+      value = Math.round(value);
+      progressBar.querySelector(".progress__fill").style.width = `${value}%`;
+      progressBar.querySelector(".progress__text").textContent = `${value}%`;
+    }
+
     // 2. jquery post image
     $(function() {
       $('#click-analyze').click(function() {
+
+        if ( myProgressBar.style.visibility == "hidden" ) {
+          myProgressBar.style.visibility = "visible";
+      }
+        // setButtonProgress( btnAnalyze, 30);
+        updateProgressBar(myProgressBar, 30);
+
         const block = capturedImage.src.split(";");
         // Get the content type of the image
         const contentType = block[0].split(":")[1];// In this case "image/gif"
         // get the real base64 content of the file
         const realData = block[1].split(",")[1];
-
         // Convert it to a blob to upload
         const blob = b64toBlob(realData, contentType);
         let formData = new FormData();
         formData.append('file',blob, 'test.jpg');
+        // setButtonProgress( btnAnalyze, 50);
+        updateProgressBar(myProgressBar, 50);
         $.ajax({
           url: '/handle_image',
           data: formData,
@@ -117,6 +146,8 @@
           processData: false,
           contentType: false,
           success: function(response) {
+            // setButtonProgress( btnAnalyze, 100);
+            updateProgressBar(myProgressBar, 100);
             console.log(response);
             const labelId = response.predicted_label;
             const label = LABEL_VALUES[labelId];
@@ -136,9 +167,10 @@
         var track = cameraStream.getTracks()[ 0 ];
         track.stop();
         videoInput.load();
+        btnAnalyze.style.visibility = hidden;
+        myProgressBar.style.visibility = hidden;
         cameraStream = null;
       }
     }
-
 
 </script>

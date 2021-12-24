@@ -14,8 +14,16 @@
     </div> -->
 </div>
 <br>
-<button id="click-analyze" class="btn btn-primary" style="visibility: hidden;">Analyze</button>
-<hr>
+<button id="click-analyze" class="btn btn-primary" data-progress-text="Analyzing..." data-complete-text="Analyze" style="visibility: hidden;">
+  <div class="button__progress"></div>  
+  <span class="button__text">Analyze</span>
+</button>
+<br>
+<div class="analyze-progress" style="visibility: hidden;">
+  <div class="progress__fill"></div>
+  <span class="progress__text">0%</span>
+</div>
+<br>
 <div>
   <h5>Result</h5>
   <div id="predicted_label"></div>

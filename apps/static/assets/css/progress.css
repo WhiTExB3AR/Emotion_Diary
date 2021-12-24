@@ -1,0 +1,40 @@
+/* .button__progress {
+    position: absolute;
+    height: 100%;
+    width: 0%;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.2);
+    transition: width 0.3s;
+}
+  
+.button__text {
+    position: relative;
+} */
+  
+
+.analyze-progress {
+position: relative;
+width: 210px;
+height: 30px;
+margin: 0 auto;
+background: #FF91C8;
+border-radius: 5px;
+overflow: hidden;
+}
+
+.progress__fill {
+width: 0%;
+height: 100%;
+background: #D350D9;
+transition: all 0.2s;
+}
+
+.progress__text {
+position: absolute;
+top: 50%;
+right: 5px;
+transform: translateY(-50%);
+font: bold 14px "Quicksand", sans-serif;
+color: #ffffff;
+}

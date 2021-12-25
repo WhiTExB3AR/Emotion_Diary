@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 
 from flask_wtf import form
+import apps
 from apps.home import blueprint
 from flask import render_template, request
 from flask_login import login_required
@@ -17,10 +18,13 @@ from apps.home.camera import gen_frames
 from apps.home.forms import CreateForm, ViewForm
 import datetime
 import pytz # libraby for python timezone
+import werkzeug
+import io
 from werkzeug.utils import secure_filename
 
 from PIL import Image
 import cv2
+import numpy as np
 import os
 from apps.fer_model.predict import transform_image, res_solver, model_options
 # ------- End: B3AR config code -------
@@ -118,7 +122,12 @@ def handle_image():
         # l_image=image_1.convert('L')
 
         print('File:', file)
-        
+
+        imagefile_name=file.filename # get the filename of image in FileStorage
+        snapshots_path='apps/static/assets/img/snapshots' # path to save image
+        file.save(os.path.join(snapshots_path, secure_filename(imagefile_name))) # save image
+        print('* [INFO] Successfully saved image')
+
         rgb_image=Image.open(file).convert('RGB')
         l_image=Image.open(file).convert('L')
         # ------- End: Crop face -------

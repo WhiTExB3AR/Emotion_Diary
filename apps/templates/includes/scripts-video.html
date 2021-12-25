@@ -135,6 +135,7 @@
         const realData = block[1].split(",")[1];
         // Convert it to a blob to upload
         const blob = b64toBlob(realData, contentType);
+        
         let formData = new FormData();
         formData.append('file',blob, 'test.jpg');
         // setButtonProgress( btnAnalyze, 50);

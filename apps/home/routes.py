@@ -8,9 +8,6 @@ from jinja2 import TemplateNotFound
 
 # ------- Start: B3AR config code -------
 from flask import Response, redirect, url_for, flash
-from flask_login import (
-    current_user
-)
 from apps import db
 from apps.authentication.models import Users, Diaries, Emotions
 from apps.home.camera import gen_frames
@@ -42,42 +39,91 @@ def index():
 #     res = Response(gen_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
 #     return res
 
-@blueprint.route('/new_diary', methods=['GET', 'POST'])
+@blueprint.route('/new-diary', methods=['GET', 'POST'])
 def new_diary():
-    post_datetime = None
-    # validate form
-    if form.validate_on_submit():
-        post_datetime = form.post_datetime.data
-        form.post_datetime.data = datetime.now(pytz.timezone('Asia/Saigon')) # 'Etc/GMT+7'
-        fmt = '%Y-%m-%d %H:%M:%S'
+    segment = get_segment(request)
+    # form = CreateForm(request.form)
+    post_datetime = request.form['post_datetime']
+    uid = request.form['uid']
+    eid = request.form['eid']
+    imgname = request.form['imgname']
+    title = request.form['title']
+    content = request.form['content']
+    if(post_datetime):
+        diary = Diaries.query.filter_by(post_datetime=post_datetime).first()
+        if diary:
+            return render_template('home/index.html',
+                                    msg="Please write new diary",
+                                    segment=segment,
+                                    success=False,)
+                                    # form=form)
+        # diary = Diaries(**request.form)
+        diary = Diaries(
+            post_datetime = post_datetime,
+            uid = uid,
+            eid = eid,
+            imgname = imgname,
+            title = title, 
+            content = content
+        )
+        db.session.add(diary)
+        db.session.commit()
+        print('* [INFO] Added to DB:', '\n** Datetime: ', post_datetime, '\n** User ID: ', uid, '\n** Emotion ID: ', eid, '\n** Image Name: ', imgname, '\n** Title: ', title, '\n** Content: ', content)
 
-
-
-    return render_template('home/index.html', 
-                            # post_datetime = post_datetime, 
-                            form = form)
-
-    # create_new_diary = CreateForm(request.form)
-    # if 'new_diary' in request.form:
-    #     # read form data
-    #     post_datetime = request.form['post_create_datetime']
+        return render_template(
+            'home/ui-view-diary',
+            success=True,
+            segment=segment,
+            # form=form
+        )
+    return render_template(
+        'home/index.html',
+        # form=form,
+        segment=segment
+    )
+    # Detect the current page
+    # segment = get_segment(request)
+    
+    # if 'new-diary' in request.form:
+    #     # read from data
+    #     post_datetime = request.form['post_datetime']
     #     emoname = request.form['emoname']
     #     title = request.form['title']
     #     content = request.form['content']
 
-    #     # create the diary
-    #     diary = Diaries(**request.form)
+    #     # check post datetime exists
+    #     diary = Diaries.query.filter_by(post_datetime=post_datetime).first()
+    #     if diary:
+    #         return render_template('home/index.html',
+    #                                 msg="Please write new diary",
+    #                                 segment=segment,
+    #                                 success=False,
+    #                                 form=new_diary_form)
+    #     # else create new diary
+    #     diary =Diaries(**request.form)
     #     db.session.add(diary)
     #     db.session.commit()
 
-    #     return render_template('home/diary.html',
-    #                             msg='Diary of today was recorded',
-    #                             segment = 'new_diary', 
+    #     return render_template('home/ui-view-diary',
+    #                             segment=segment,
     #                             success=True,
-    #                             form=create_new_diary)
-
+    #                             form=new_diary_form)
     # else:
-    #     return redirect(url_for('home_blueprint.index'))
+    #     return render_template('home/index.html',
+    #                             segment=segment,
+    #                             form=new_diary_form)
+    # post_datetime = None
+    # # validate form
+    # if form.validate_on_submit():
+    #     post_datetime = form.post_datetime.data
+    #     form.post_datetime.data = datetime.now(pytz.timezone('Asia/Saigon')) # 'Etc/GMT+7'
+    #     fmt = '%Y-%m-%d %H:%M:%S'
+
+
+
+    # return render_template('home/index.html', 
+    #                         # post_datetime = post_datetime, 
+    #                         form = form)
 
 # ------- End: B3AR config code -------
 

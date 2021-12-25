@@ -54,18 +54,19 @@ class Diaries(db.Model):
     eid = db.Column(db.Integer, db.ForeignKey("Emotions.id"), nullable=False)
     imgname = db.Column(db.String(128), nullable=False)
     title = db.Column(db.String(128))
-    contents = db.Column(db.String(255))
+    content = db.Column(db.String(255))
 
-    def __init__(self, id ,uid, eid, title, imgname, contents):
-        self.id = id
-        self.uid = uid
-        self.eid = eid
-        self.imgname = imgname
-        self.title = title
-        self.contents = contents
+    # def __init__(self, id ,uid, eid, title, imgname, content):
+    #     self.id = id
+    #     self.uid = uid
+    #     self.eid = eid
+    #     self.imgname = imgname
+    #     self.title = title
+    #     self.content = content
+        
 
     def __repr__(self):
-        return str(self.id, self.post_datetime, self.uid, self.eid, self.imgname, self.title ,self.contents)
+        return str(self.id, self.post_datetime, self.uid, self.eid, self.imgname, self.title ,self.content)
 
 # Emotion Table
 class Emotions(db.Model):

@@ -11,8 +11,8 @@ try:
 except OSError as error:
     pass
 
-print("[INFO] Loading face detector...") # Load model haarcascade global -> load 1 times
-detector = cv2.CascadeClassifier('apps/static/assets/xml/haarcascade/haarcascade_frontalface_default.xml')
+# print("[INFO] Loading face detector...") # Load model haarcascade global -> load 1 times
+# detector = cv2.CascadeClassifier('apps/static/assets/xml/haarcascade/haarcascade_frontalface_default.xml')
 
 def gen_frames():  # generate frame by frame from camera
    while True:

@@ -8,6 +8,9 @@ from jinja2 import TemplateNotFound
 
 # ------- Start: B3AR config code -------
 from flask import Response, redirect, url_for, flash
+from flask_login import (
+    current_user
+)
 from apps import db
 from apps.authentication.models import Users, Diaries, Emotions
 from apps.home.camera import gen_frames
@@ -30,8 +33,8 @@ def index():
     return render_template('home/index.html', segment='index', form=create_form)
 
 # ------- Start: B3AR config code -------
-print(" * [INFO] Loading face detector...") # Load model haarcascade global -> load 1 times
-detector = cv2.CascadeClassifier('apps/static/assets/xml/haarcascade/haarcascade_frontalface_default.xml')
+# print(" * [INFO] Loading face detector...") # Load model haarcascade global -> load 1 times
+# detector = cv2.CascadeClassifier('apps/static/assets/xml/haarcascade/haarcascade_frontalface_default.xml')
 
 # @blueprint.route('/video_feed')
 # def video_feed():
@@ -77,77 +80,6 @@ def new_diary():
     #     return redirect(url_for('home_blueprint.index'))
 
 # ------- End: B3AR config code -------
-
-def face_detect(): # chưa config xong
-    # load the input image from disk, resize it, and convert it to
-    # grayscale
-    image_org = cv2.imread(args["image"])
-    # image_resize = imutils.resize(image_org, width=500)
-    gray = cv2.cvtColor(image_org, cv2.COLOR_BGR2GRAY)
-
-    # detect faces in the input image using the haar cascade face
-    # detector
-    print("[INFO] performing face detection...")
-    faces_result = detector.detectMultiScale(
-        gray, 
-        scaleFactor = 1.05,
-        minNeighbors = 25, 
-        minSize = (30, 30),
-        flags = cv2.CASCADE_SCALE_IMAGE)
-    print("[INFO] {} faces detected...".format(len(faces_result)))
-    count = 0
-    for i in range(len(faces_result)):
-        count = count + 1
-
-
-    # loop over the bounding boxes
-    for (x, y, w, h) in faces_result:
-        # draw the face bounding box on the image (B, G, R) = (255, 0, 0) => box line is blue
-        cv2.rectangle(image_org, (x, y), (x + w, y + h), (0,155,255), 2)
-
-    # print("width: {} pixels".format(w))
-    # print("height: {}  pixels".format(h))
-
-    # ------- Start: split to file name -------
-    file_name_pathlib = Path(args["image"]).stem
-    print("Got the file name original: ", file_name_pathlib)
-
-    # Save the image with rectangle face detection
-    cv2.imwrite('images/results/detected_rectangle/' + 
-                "Face Detected HAAR_" + 
-                str(file_name_pathlib) + 
-                ".png", 
-                image_org)
-    print('=> Successfully saved face detection rectangle and show each face now')
-
-    # ------- Start: Crop face -------
-    # 1. using OpenCV
-    i = 0 # for each face focus
-    for (x, y, w, h) in faces_result:
-        print(x,y,w,h)
-        crop_face = gray[y:y+h, x:x+w]
-        cv2.imwrite('images/results/face_focus/haar/' +
-                    str(file_name_pathlib) +
-                    # 'HAAR_face_' +
-                    # str(i) +
-                    '.png', 
-                    crop_face)
-        cv2.imshow("Cropped face.png", crop_face)
-        i = i + 1
-        count = count - 1
-        if (count < 0): # no face focus found in len(faces_result)
-            break
-        cv2.waitKey(0)
-    # ------- End: Crop face -------
-
-    # show the output image
-    # cv2.imshow("Image", image)
-    # path = 'images/results/face_detected'
-    # cv2.imwrite(os.path.join(path,"Face detected Haar.png", image_org))
-    # print('Successfully saved and show now')
-    # cv2.imshow("Face detected Haar.png", image_org)
-    # cv2.waitKey(0)
-
 
 @blueprint.route('/handle_image', methods=['POST'])
 def handle_image():

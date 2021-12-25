@@ -77,7 +77,7 @@
 
       var img_date = today.getFullYear()+''+(today.getMonth()+1)+''+today.getDate();
       var img_time = today.getHours()+''+today.getMinutes()+''+today.getSeconds();
-      var my_imgname = img_date+'-'+img_time;
+      var my_imgname = img_date+'-'+img_time+'.jpg';
       $('#img_create_diary').val(my_imgname);
 
       var post_date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate(); 
@@ -91,7 +91,7 @@
         ctx.drawImage( videoInput, 0, 0, canvasOutput.width, canvasOutput.height ); // 1. script lay anh
         img.src		= canvasOutput.toDataURL( "image/jpeg" ); // Set source path
         img.width	= 240;
-        img.name=my_imgname+".jpg"
+        img.name=my_imgname;
         capturedImage=img;
       }
       if ( btnAnalyze.style.visibility == "hidden" ) {
@@ -155,14 +155,14 @@
 
         const block = capturedImage.src.split(";");
         // Get the content type of the image
-        const contentType = block[0].split(":")[1];// In this case "image/gif"
+        const contentType = block[0].split(":")[1];// In this case "image/jpeg"
         // get the real base64 content of the file
         const realData = block[1].split(",")[1];
         // Convert it to a blob to upload
         const blob = b64toBlob(realData, contentType);
         
         let formData = new FormData();
-        formData.append('file',blob, 'test.jpg');
+        formData.append('file',blob, 'test.jpg'); // my_imgname
         // setButtonProgress( btnAnalyze, 50);
         updateProgressBar(myProgressBar, 50);
         $.ajax({
@@ -178,8 +178,64 @@
             const labelId = response.predicted_label;
             const label = LABEL_VALUES[labelId];
             $('#predicted_label').text(label);
-            $('eid_create_diary').val(labelId);
+            $('#eid_create_diary').val(labelId);
             $('#emotion_create_diary').val(label);
+          },
+          error: function(error) {
+            console.log(error);
+          }
+        });
+      })
+    })
+
+    $(function(){
+      $('#form-create-diary').submit(function(){
+        const block = capturedImage.src.split(";");
+        // Get the content type of the image
+        const contentType = block[0].split(":")[1];// In this case "image/jpeg"
+        // get the real base64 content of the file
+        const realData = block[1].split(",")[1];
+        // Convert it to a blob to upload
+        const blob = b64toBlob(realData, contentType);
+
+        let formData = new FormData();
+        formData.append('file',blob, $('#img_create_diary').val()); // my_imgname
+        // setButtonProgress( btnAnalyze, 50);
+        // updateProgressBar(myProgressBar, 50);
+        formData.append('post_datetime',$('#post_create_datetime').val());
+
+        // done
+        $.ajax({
+          url: '/newdiary',
+          data: formData,
+          type: 'POST',
+          processData: false,
+          contentType: false,
+          success: function(response) {
+            const result = response.result;
+            const msgBox = $('#msg-box');
+            if(result){
+              console.log('success');
+              $(msgBox).text('success')
+            }else{
+              console.log('failed');
+              $(msgBox).text('failed');
+            }
+            $('#modal-result').modal('show');
+            setTimeout(function(){
+              // De url cua trang xem diary vao day
+              // window.location.replace("/");
+            }, 3000);
+            // tu dong chuyen tiep sau 3000 ms
+
+            // setButtonProgress( btnAnalyze, 100);
+            // updateProgressBar(myProgressBar, 100);
+            // console.log(response);
+            // const labelId = response.predicted_label;
+            // const label = LABEL_VALUES[labelId];
+            // $('#predicted_label').text(label);
+            // $('#eid_create_diary').val(labelId);
+            // $('#emotion_create_diary').val(label);
           },
           error: function(error) {
             console.log(error);

@@ -48,10 +48,11 @@ class Diaries(db.Model):
     __tablename__ = "Diaries"
 
     id = db.Column(db.Integer, primary_key=True)
-    post_datetime = db.Column(db.DateTime, default=datetime.utcnow)
+    # post_datetime = db.Column(db.DateTime, default=datetime.utcnow)
+    post_datetime = db.Column(db.DateTime, nullable=False)
     uid = db.Column(db.Integer, db.ForeignKey("Users.id"), nullable=False)
     eid = db.Column(db.Integer, db.ForeignKey("Emotions.id"), nullable=False)
-    imgname = db.Column(db.String(64), nullable=False)
+    imgname = db.Column(db.String(128), nullable=False)
     title = db.Column(db.String(128))
     contents = db.Column(db.String(255))
 

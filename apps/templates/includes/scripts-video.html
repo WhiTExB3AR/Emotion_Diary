@@ -126,9 +126,10 @@
     // Animation for progress bar analyze button
     function setButtonProgress(button, percent) {
       const textElement = button.querySelector(".button__text");
-      // button.querySelector(".button__progress").style.width = `${percent}%`;
+      button.querySelector(".button__progress").style.width = `${percent}%`;
       if (percent >= 0) {
         textElement.textContent = button.dataset.progressText;
+
       }
 
       if (percent >= 100) {
@@ -150,7 +151,7 @@
         if ( myProgressBar.style.visibility == "hidden" ) {
           myProgressBar.style.visibility = "visible";
       }
-        // setButtonProgress( btnAnalyze, 30);
+        setButtonProgress( btnAnalyze, 30);
         updateProgressBar(myProgressBar, 30);
 
         const block = capturedImage.src.split(";");
@@ -162,8 +163,8 @@
         const blob = b64toBlob(realData, contentType);
         
         let formData = new FormData();
-        formData.append('file',blob, 'test.jpg'); // my_imgname
-        // setButtonProgress( btnAnalyze, 50);
+        formData.append('file',blob, $('#img_create_diary').val()); // test.jpg hoặc my_imgname
+        setButtonProgress( btnAnalyze, 50);
         updateProgressBar(myProgressBar, 50);
         $.ajax({
           url: '/handle_image',
@@ -172,7 +173,7 @@
           processData: false,
           contentType: false,
           success: function(response) {
-            // setButtonProgress( btnAnalyze, 100);
+            setButtonProgress( btnAnalyze, 100);
             updateProgressBar(myProgressBar, 100);
             console.log(response);
             const labelId = response.predicted_label;
@@ -188,61 +189,37 @@
       })
     })
 
-    $(function(){
-      $('#form-create-diary').submit(function(){
-        const block = capturedImage.src.split(";");
-        // Get the content type of the image
-        const contentType = block[0].split(":")[1];// In this case "image/jpeg"
-        // get the real base64 content of the file
-        const realData = block[1].split(",")[1];
-        // Convert it to a blob to upload
-        const blob = b64toBlob(realData, contentType);
-
-        let formData = new FormData();
-        formData.append('file',blob, $('#img_create_diary').val()); // my_imgname
-        // setButtonProgress( btnAnalyze, 50);
-        // updateProgressBar(myProgressBar, 50);
-        formData.append('post_datetime',$('#post_create_datetime').val());
-
-        // done
-        $.ajax({
-          url: '/newdiary',
-          data: formData,
-          type: 'POST',
-          processData: false,
-          contentType: false,
-          success: function(response) {
-            const result = response.result;
-            const msgBox = $('#msg-box');
-            if(result){
-              console.log('success');
-              $(msgBox).text('success')
-            }else{
-              console.log('failed');
-              $(msgBox).text('failed');
-            }
-            $('#modal-result').modal('show');
-            setTimeout(function(){
-              // De url cua trang xem diary vao day
-              // window.location.replace("/");
-            }, 3000);
-            // tu dong chuyen tiep sau 3000 ms
-
-            // setButtonProgress( btnAnalyze, 100);
-            // updateProgressBar(myProgressBar, 100);
-            // console.log(response);
-            // const labelId = response.predicted_label;
-            // const label = LABEL_VALUES[labelId];
-            // $('#predicted_label').text(label);
-            // $('#eid_create_diary').val(labelId);
-            // $('#emotion_create_diary').val(label);
-          },
-          error: function(error) {
-            console.log(error);
-          }
-        });
-      })
-    })
+    // $(function(){
+    //   $('#form-create-diary').submit(function(){
+    //     $.ajax({
+    //       url: '/newdiary',
+    //       data: formData,
+    //       type: 'POST',
+    //       processData: false,
+    //       contentType: false,
+    //       success: function(response) {
+    //         const result = response.result;
+    //         const msgBox = $('#msg-box');
+    //         if(result){
+    //           console.log('success');
+    //           $(msgBox).text('success')
+    //         }else{
+    //           console.log('failed');
+    //           $(msgBox).text('failed');
+    //         }
+    //         $('#modal-result').modal('show');
+    //         setTimeout(function(){
+    //           // De url cua trang xem diary vao day
+    //           // window.location.replace("/");
+    //         }, 3000);
+    //         // tu dong chuyen tiep sau 3000 ms
+    //       },
+    //       error: function(error) {
+    //         console.log(error);
+    //       }
+    //     });
+    //   })
+    // })
    
     // Stop Streaming
     function stopStreaming() {

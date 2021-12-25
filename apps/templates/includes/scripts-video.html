@@ -11,6 +11,12 @@
     7:'Neutral'
   };
 
+  // Clear text value in input field
+  $('#post_create_datetime').val('');
+  $('#eid_create_diary').val('');
+  $('#emotion_create_diary').val('');
+  $('#img_create_diary').val('');
+
     $(document).ready(function() {
           // Javascript method's body can be found in assets/demos.js
           demo.initDashboardPageCharts();
@@ -18,7 +24,7 @@
 
     });
     
-    
+
     // https://html5.tutorials24x7.com/blog/how-to-capture-image-from-camera
     // The buttons to start & stop stream and to capture the image
     var btnStart = document.querySelector("#start-camera");
@@ -60,13 +66,32 @@
     }
 
     function captureSnapshot() {
+
+      // Format in database
+        // imgname: 20211209-132000
+        // post_datetime: 2021-12-09 07:47:08.481105
+
+      // Get datetime at the moment press the button analyze
+      // var this_datetime = new Date($.now()); // new Date(Date.now()) //// Sat Dec 25 2021 14:43:47 GMT+0700 (Indochina Time)
+      var today = new Date(); //Sat Dec 25 2021 14:43:47 GMT+0700 (Indochina Time)
+
+      var img_date = today.getFullYear()+''+(today.getMonth()+1)+''+today.getDate();
+      var img_time = today.getHours()+''+today.getMinutes()+''+today.getSeconds();
+      var my_imgname = img_date+'-'+img_time;
+      $('#img_create_diary').val(my_imgname);
+
+      var post_date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate(); 
+      var post_time = today.getHours()+':'+today.getMinutes()+":"+today.getSeconds()+"."+today.getMilliseconds();
+      var my_post_datetime = post_date+" "+post_time
+      $('#post_create_datetime').val(my_post_datetime);
+
       if( null != cameraStream ) {
         var ctx = canvasOutput.getContext( '2d' );
         var img = new Image(); // Create new img element
         ctx.drawImage( videoInput, 0, 0, canvasOutput.width, canvasOutput.height ); // 1. script lay anh
         img.src		= canvasOutput.toDataURL( "image/jpeg" ); // Set source path
         img.width	= 240;
-        img.name="test.jpg"
+        img.name=my_imgname+".jpg"
         capturedImage=img;
       }
       if ( btnAnalyze.style.visibility == "hidden" ) {
@@ -153,6 +178,7 @@
             const labelId = response.predicted_label;
             const label = LABEL_VALUES[labelId];
             $('#predicted_label').text(label);
+            $('eid_create_diary').val(labelId);
             $('#emotion_create_diary').val(label);
           },
           error: function(error) {

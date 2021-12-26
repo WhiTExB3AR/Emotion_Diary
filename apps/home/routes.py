@@ -89,17 +89,17 @@ def new_diary():
         # file=request.files['file']
         # file.save(f'apps/static/assets/img/{imgname}')
         return render_template(
-            'home/newdiary.html',
+            'home/ui-view-diary.html',
             success=True,
-            segment='newdiary',
+            segment='ui-view-diary',
             # form=create_form
         )
         # return {
         #     'result':True
         # }
     return render_template(
-        'home/newdiary.html',
-        segment='newdiary',
+        'home/ui-view-diary.html',
+        segment='ui-view-diary',
         # form=create_form
     )
 # ------- End: B3AR config code -------

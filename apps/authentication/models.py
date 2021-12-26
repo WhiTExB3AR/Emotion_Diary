@@ -7,6 +7,7 @@ from apps import db, login_manager
 from apps.authentication.util import hash_pass
 
 # ------- Start: B3AR config code -------
+from flask_appbuilder import Model
 from sqlalchemy.orm import relationship
 from datetime import datetime
 # ------- End: B3AR config code -------
@@ -55,16 +56,7 @@ class Diaries(db.Model):
     imgname = db.Column(db.String(128), nullable=False)
     title = db.Column(db.String(128))
     content = db.Column(db.String(255))
-
-    # def __init__(self, id ,uid, eid, title, imgname, content):
-    #     self.id = id
-    #     self.uid = uid
-    #     self.eid = eid
-    #     self.imgname = imgname
-    #     self.title = title
-    #     self.content = content
-        
-
+     
     def __repr__(self):
         return str(self.id, self.post_datetime, self.uid, self.eid, self.imgname, self.title ,self.content)
 
@@ -76,10 +68,6 @@ class Emotions(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     emoname = db.Column(db.String(10), unique=True)
     emo_post = db.relationship("Diaries", backref="emopost", lazy="dynamic") #lazy=true là chưa được vì chưa có dữ liệu trogn table
-
-    def __init__(self, id, emoname):
-        self.id = id
-        self.emoname =emoname
 
     def __repr__(self):
         return str(self.emoname)

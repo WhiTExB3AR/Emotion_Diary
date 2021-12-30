@@ -11,7 +11,39 @@
     7:'Neutral'
   };
 
-    
+    var btnToday = document.querySelector("#btn-today");
+    var btnNext = document.querySelector("#btn-next");
+    var btnPrev = document.querySelector("#btn-prev");
+
+    // Attach listeners
+    btnToday.addEventListener( "click", onClickTodayBtn );
+    btnNext.addEventListener( "click", moveToNextOrPrevRange );
+    btnPrev.addEventListener( "click", moveToNextOrPrevRange );
+
+    function onClickTodayBtn() {
+        calendar.today();
+        setRenderRangeText();
+    };
+
+    function moveToNextOrPrevRange(val) {
+        if (val.target.id === "btn-prev") {
+            calendar.prev();
+        } else if (val.target.id === "btn-next") {
+            calendar.next();
+        }
+        setRenderRangeText();
+    };
+
+
+    function setRenderRangeText() {
+        const d = new Date(calendar.getDate().getTime());
+
+        var renderRange = document.getElementById('renderRange');
+        renderRange.innerHTML = d.getFullYear() + "-" + (d.getMonth() + 1);
+
+        // renderRange.innerHTML = moment(calendar.getDate().getTime()).format('YYYY.MM');
+    }
+
     const Calendar = tui.Calendar;
 
     const calendar = new Calendar('#calendar', {
@@ -24,6 +56,8 @@
             }
         }
     });
+
+    setRenderRangeText();
 
     // calendar.createSchedules([
     // {
@@ -46,6 +80,7 @@
     //     isReadOnly: true    // schedule is read-only
     // }
     // ]);
+
     $(function(){
         $.ajax({
             url:'/fetch_diary',

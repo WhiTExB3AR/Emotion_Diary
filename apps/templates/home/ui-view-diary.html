@@ -6,66 +6,8 @@
 {% block stylesheets %}{% endblock stylesheets %}
 
 {% block content %}
-
 <div class="row">
-
-  <div class="col-md-12 col-xl-6">
-    <div class="row">
-      <div class="col-sm-6">
-        <div class="card">
-          <div class="card-body bg-patern">
-            <div class="row">
-              <div class="col-auto">
-                <span>Customers</span>
-              </div>
-              <div class="col text-right">
-                <h2 class="mb-0">826</h2>
-                <span class="text-c-green">8.2%<i class="feather icon-trending-up ml-1"></i></span>
-              </div>
-            </div>
-            <div id="customer-chart"></div>
-            <div class="row mt-3">
-              <div class="col">
-                <h3 class="m-0"><i class="fas fa-circle f-10 m-r-5 text-success"></i>674</h3>
-                <span class="ml-3">New</span>
-              </div>
-              <div class="col">
-                <h3 class="m-0"><i class="fas fa-circle text-primary f-10 m-r-5"></i>182</h3>
-                <span class="ml-3">Return</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-6">
-        <div class="card bg-primary text-white">
-          <div class="card-body bg-patern-white">
-            <div class="row">
-              <div class="col-auto">
-                <span>Customers</span>
-              </div>
-              <div class="col text-right">
-                <h2 class="mb-0 text-white">826</h2>
-                <span class="text-white">8.2%<i class="feather icon-trending-up ml-1"></i></span>
-              </div>
-            </div>
-            <div id="customer-chart1"></div>
-            <div class="row mt-3">
-              <div class="col">
-                <h3 class="m-0 text-white"><i class="fas fa-circle f-10 m-r-5 text-success"></i>674</h3>
-                <span class="ml-3">New</span>
-              </div>
-              <div class="col">
-                <h3 class="m-0 text-white"><i class="fas fa-circle f-10 m-r-5 text-white"></i>182</h3>
-                <span class="ml-3">Return</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-  </div>
-</div>
-  <div class="col-12">
+  <div class="col-md-12">
     <div class="card card-chart">
       <div class="card-header ">
         <div class="row">
@@ -73,7 +15,7 @@
             <h5 class="card-category">Diary</h5>
             <h2 class="card-title">Calendar</h2>
           </div>
-          <div class="col-sm-6">
+          <!-- <div class="col-sm-6">
             <div class="btn-group btn-group-toggle float-right" data-toggle="buttons">
               <label class="btn btn-sm btn-primary btn-simple active" id="0">
                 <input type="radio" name="options" checked>
@@ -97,34 +39,65 @@
                 </span>
               </label>
             </div>
+          </div> -->
+          <div class="col-sm-6 text-right">
+            <div id="menu">
+              <span id="menu-navi">
+                <button type="button" class="btn btn-default btn-sm move-today" data-action="move-today">Today</button>
+                <button type="button" class="btn btn-default btn-sm move-day" data-action="move-prev">
+                  <i class="calendar-icon ic-arrow-line-left" data-action="move-prev"></i>
+                </button>
+                <button type="button" class="btn btn-default btn-sm move-day" data-action="move-next">
+                  <i class="calendar-icon ic-arrow-line-right" data-action="move-next"></i>
+                </button>
+              </span>
+              <span id="renderRange" class="render-range"></span>
+            </div>
+          </div>
+          <div class="card-body">
+            <div id="calendar" ></div>
+
           </div>
         </div>
       </div>
-      <div class="card-body">
+      <!-- <div class="card-body">
         <div class="chart-area">
           <canvas id="chartBig1"></canvas>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
-
 </div>
 
 <div class="row">
-  <div class="col-lg-4">
+  <div class="col-md-6">
     <div class="card card-chart">
       <div class="card-header">
-        <h5 class="card-category">Total Shipments</h5>
-        <h3 class="card-title"><i class="tim-icons icon-bell-55 text-primary"></i> 763,215</h3>
+        <h5 class="card-category">Emotion Chart</h5>
+        <h3 class="card-title"><i class="tim-icons icon-bell-55 text-primary"></i> Count</h3>
       </div>
       <div class="card-body">
-        <div class="chart-area">
-          <canvas id="chartLinePurple"></canvas>
-        </div>
+        <!-- <div class="chart-area"> -->
+          <canvas id="chart-1"></canvas>
+        <!-- </div> -->
       </div>
     </div>
   </div>
-  <div class="col-lg-4">
+  <div class="col-md-6">
+    <div class="card card-chart">
+      <div class="card-header">
+        <h5 class="card-category">Emotion Chart</h5>
+        <h3 class="card-title"><i class="tim-icons icon-bell-55 text-primary"></i> Track</h3>
+      </div>
+      <div class="card-body">
+        <!-- <div class="chart-area"> -->
+          <canvas id="chart-2"></canvas>
+        <!-- </div> -->
+      </div>
+    </div>
+  </div>
+</div>
+  <!-- <div class="col-lg-4">
     <div class="card card-chart">
       <div class="card-header">
         <h5 class="card-category">Daily Sales</h5>
@@ -150,7 +123,7 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 
 {% endblock content %}
 
@@ -158,6 +131,7 @@
 {% block javascripts %}
 
   {% include 'includes/scripts-calendar.html' %}
+  {% include 'includes/scripts-chart.html' %}
 
 {% endblock javascripts %}
 

@@ -41,6 +41,9 @@ class Users(db.Model, UserMixin):
     def __repr__(self):
         return str(self.username, self.id)
 
+    def get_id(self):
+        return self.id
+
 # ------- Start: B3AR config code -------
 # Diary Table (many to one with user and emotion tables) => choosen relation code in diary table
 class Diaries(db.Model):

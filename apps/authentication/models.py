@@ -39,7 +39,7 @@ class Users(db.Model, UserMixin):
             setattr(self, property, value)
 
     def __repr__(self):
-        return str(self.username)
+        return str(self.username, self.id)
 
 # ------- Start: B3AR config code -------
 # Diary Table (many to one with user and emotion tables) => choosen relation code in diary table

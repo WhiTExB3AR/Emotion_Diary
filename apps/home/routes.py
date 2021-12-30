@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
 
+import flask_login
 from flask_wtf import form
 import apps
 from apps.home import blueprint
@@ -149,8 +150,9 @@ def handle_image():
 
 @blueprint.route('/fetch_diary', methods=['POST'])
 def fetch_diary():
+    uid=current_user.get_id()
     # query DB
-    diaries=Diaries.query.all()
+    diaries=Diaries.query.filter(Diaries.uid==uid).all()
     result=[]
     for d in diaries:
         result.append({
@@ -172,12 +174,28 @@ def fetch_diary():
     # response.result
 @blueprint.route('/fetch_chart', methods=['POST'])
 def fetch_chart():
-    diaries=db.session.query(Diaries.eid, func.count(Diaries.eid)).group_by(Diaries.eid).all()
+    
+    # uid=current_user.get_id()
+
+    if(current_user):
+    # only_uid = Diaries.query.filter_by(uid=uid).first()
+        ueid=current_user.query\
+            .join(Diaries).join(Emotions)\
+            .add_columns(Users.id, Diaries.eid, Emotions.emoname, func.count(Diaries.eid))\
+            .filter(Diaries.uid==current_user.get_id())\
+            .group_by(Diaries.eid)\
+            .all()
+        # ueid=db.session.query(Users, Diaries, Emotions, func.count(Diaries.eid)).join(Diaries).join(Emotions).filter(Diaries.uid==uid).group_by(Diaries.uid, Diaries.eid, Emotions.emoname).all()
+
+    # ueid=db.session.query(Users.id, Diaries.eid, Emotions.emoname, func.count(Diaries.eid)).outerjoin(Diaries, Users.id==Diaries.uid).outerjoin(Emotions, Diaries.eid==Emotions.id).group_by(Users.id, Diaries.eid, Emotions.emoname).all()
+    # diaries=db.session.query(Diaries.eid, func.count(Diaries.eid)).group_by(Diaries.eid).all()
     result=[]
-    for d in diaries:
+    for d in ueid:
         result.append({
-            'eid':d[0],
-            'count':d[1]
+            'uid': d[1],
+            'eid': d[2],
+            'emoname': d[3],
+            'count': d[4]
         })
     return jsonify(result=result)
 

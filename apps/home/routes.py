@@ -12,7 +12,7 @@ from flask import Response, redirect, url_for, flash, jsonify
 from flask_login import (
     current_user
 )
-from apps import db
+from apps import db, login_manager
 from apps.authentication.models import Users, Diaries, Emotions
 from apps.home.camera import gen_frames
 from apps.home.forms import CreateForm, ViewForm

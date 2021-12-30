@@ -8,7 +8,7 @@ from flask_login import login_required
 from jinja2 import TemplateNotFound
 
 # ------- Start: B3AR config code -------
-from flask import Response, redirect, url_for, flash
+from flask import Response, redirect, url_for, flash, jsonify
 from flask_login import (
     current_user
 )
@@ -27,6 +27,7 @@ import cv2
 import numpy as np
 import os
 from apps.fer_model.predict import transform_image, res_solver, model_options
+from sqlalchemy import func
 # ------- End: B3AR config code -------
 
 @blueprint.route('/index')
@@ -146,6 +147,39 @@ def handle_image():
             'predicted_label':rs.tolist()[0]
         }
 
+@blueprint.route('/fetch_diary', methods=['POST'])
+def fetch_diary():
+    # query DB
+    diaries=Diaries.query.all()
+    result=[]
+    for d in diaries:
+        result.append({
+            'title':d.title,
+            'content':d.content,
+            'id':d.id,
+            'post_datetime':d.post_datetime.isoformat(),
+            'eid':d.eid,
+            'imgname':d.imgname
+        })
+
+    return jsonify(result=result)
+
+    # {
+    #     "result":[
+    #         {},{},{}
+    #     ]
+    # }
+    # response.result
+@blueprint.route('/fetch_chart', methods=['POST'])
+def fetch_chart():
+    diaries=db.session.query(Diaries.eid, func.count(Diaries.eid)).group_by(Diaries.eid).all()
+    result=[]
+    for d in diaries:
+        result.append({
+            'eid':d[0],
+            'count':d[1]
+        })
+    return jsonify(result=result)
 
 @blueprint.route('/<template>')
 @login_required

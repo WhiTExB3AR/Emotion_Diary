@@ -7,7 +7,6 @@ from apps import db, login_manager
 from apps.authentication.util import hash_pass
 
 # ------- Start: B3AR config code -------
-from flask_appbuilder import Model
 from sqlalchemy.orm import relationship
 from datetime import datetime
 # ------- End: B3AR config code -------

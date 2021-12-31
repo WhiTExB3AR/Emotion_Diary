@@ -199,6 +199,39 @@ def fetch_chart():
         })
     return jsonify(result=result)
 
+@blueprint.route('/fetch_week', methods=['GET', 'POST'])
+def fetch_weekly():
+    str_date=request.form.get('datetime',None)
+    if str_date:
+        current_date=datetime.datetime.fromisoformat(str_date)
+    else:
+        current_date=datetime.datetime.now()
+    start_date=current_date - datetime.timedelta(days=current_date.weekday())
+    end_date=start_date+datetime.timedelta(days=6)
+    diaries=Diaries.query\
+        .filter(Diaries.uid==5)\
+        .filter(Diaries.post_datetime>=start_date)\
+        .all()
+        # .filter(Diaries.post_datetime.between(start_date,end_date))\
+        # .all()
+        # .filter(and_(
+        #     Diaries.uid == 5,
+        #     Diaries.post_datetime.between(start_date,end_date)
+        # ))\
+        # .all()
+        # .order_by(Diaries.post_datetime.desc())\
+        # .all()
+    result=[]
+    for d in diaries:
+        result.append({
+            'post_datetime':d.post_datetime.isoformat(),
+            'eid':d.eid,
+        })
+    return {
+        'result':result
+    }
+
+
 @blueprint.route('/<template>')
 @login_required
 def route_template(template):

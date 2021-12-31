@@ -44,9 +44,12 @@
           <div class="col-sm-6 text-center">
             <div id="menu">
               <span id="menu-navi">
-                <button id="btn-today" type="button" class="btn btn-default btn-sm move-today" data-action="move-today">Today</button>
                 <button id="btn-prev" type="button" class="btn btn-default btn-sm move-day" data-action="move-prev">
                   <i class="calendar-icon ic-arrow-line-left"><</i>
+                </button>
+                <button id="btn-today" type="button" class="btn btn-default btn-sm move-today" data-action="move-today">
+                  Today
+                  <span id="renderRange" class="render-range"></span>
                 </button>
                 <button id="btn-next" type="button" class="btn btn-default btn-sm move-day" data-action="move-next">
                   <i class="calendar-icon ic-arrow-line-right">></i>
@@ -59,24 +62,31 @@
 
             <div class="col-sm-6">
               <div class="card text-white bg-dark mb-3" style="max-width: 100%;max-height: 100%;">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="card-header text-center">
+                      Update Diary
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <h5 class="card-header">post_datetime</h5>
+                 </div>
+                </div>
                 <div class="card-body">
                   <div class="row">
                     <div class="col-sm-3">
                       <span class="">eid_color</span>
                     </div>
-                    <div class="col-sm-3">
-                      <span class="">emoname</span>
+                    <div class="ccol-sm-3">
+                      <span class="card-title">emoname</span>
                     </div>
-                   <div class="col-sm-6">
-                      <h5 class="card-title">post_datetime</h5>
-                   </div>
                   </div>
                   <div class="form-group">
-                    <label>Title (Optional)</label>
+                    <label>Title</label>
                     <input class="form-control" id="title_create_diary" name="title" type="text" value="" style="height:50px;">
                   </div>
                   <div class="form-group">
-                    <label>Tell about your day (Optional)</label>
+                    <label>New content</label>
                     <textarea class="form-control" rows="5" id="content_create_diary" name="content" type="text" value=""></textarea>
                   </div>
                   <div class="text-center">

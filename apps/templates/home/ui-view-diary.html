@@ -1,6 +1,6 @@
 {% extends "layouts/base.html" %}
 
-{% block title %} UI View Diary {% endblock %} 
+{% block title %} UI View Diary {% endblock %}
 
 <!-- Specific Page CSS goes HERE  -->
 {% block stylesheets %}{% endblock stylesheets %}
@@ -40,7 +40,7 @@
               </label>
             </div>
           </div> -->
-          
+
           <div class="col-sm-6 text-center">
             <div id="menu">
               <span id="menu-navi">
@@ -59,53 +59,58 @@
             </div>
           </div>
           <div class="card-body row">
-
-            <div class="col-sm-6">
-              <div class="card text-white bg-dark mb-3" style="max-width: 100%;max-height: 100%;">
-                <div class="row">
-                  <div class="col-sm-6">
-                    <div class="card-header text-center">
-                      Update Diary
-                    </div>
-                  </div>
-                  <div class="col-sm-6">
-                    <h5 class="card-header">            </h5>
-                 </div>
-                </div>
-                <div class="card-body">
+            <!-- <form action="/update-diary" method="post"> -->
+              <div class="col-sm-6">
+                <div class="card text-white bg-dark mb-3" style="max-width: 100%;max-height: 100%;">
                   <div class="row">
-                    <div class="col-sm-3">
-                      <span class="">           </span>
+                    <div class="col-sm-6">
+                      <div class="card-header text-center">
+                        Update Diary
+                      </div>
                     </div>
-                    <div class="ccol-sm-3">
-                      <span class="card-title">        </span>
+                    <div class="col-sm-6">
+                      <h5 class="card-header"> </h5>
                     </div>
                   </div>
-                  <div class="form-group">
-                    <label>Title</label>
-                    <input class="form-control" id="title_create_diary" name="title" type="text" value="">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-sm-3">
+                        <span class=""> </span>
+                      </div>
+                      <div class="ccol-sm-3">
+                        <span class="card-title"> </span>
+                      </div>
+                    </div>
+                    <input type="hidden" name="id" id="diary_id">
+                    <div class="form-group">
+                      <label>Title</label>
+                      <input class="form-control" id="title_create_diary" name="title" type="text" value="">
+                    </div>
+                    <div class="form-group">
+                      <label>New content</label>
+                      <textarea class="form-control" rows="5" id="content_create_diary" name="content" type="text"
+                        value=""></textarea>
+                    </div>
+                    <div class="text-center">
+                      <img class="rounded" src="/static/assets/img/blank.png" alt="photo" width="320" height="240"
+                        id="diary_image">
+                    </div>
+                    <div class="card-footer text-center">
+                      <button type="submit" name="create_diary" id='create_diary'
+                        class="btn btn-fill btn-primary">Update</button>
+                    </div>
                   </div>
-                  <div class="form-group">
-                    <label>New content</label>
-                    <textarea class="form-control" rows="5" id="content_create_diary" name="content" type="text" value=""></textarea>
-                  </div>
-                  <div class="text-center">
-                    <img class="rounded" src="/static/assets/img/blank.png" alt="photo" width="320" height="240"> 
-                  </div>
-                  <div class="card-footer text-center">
-                    <button type="submit" name="create_diary" id='create_diary' class="btn btn-fill btn-primary">Update</button>
-                 </div>
                 </div>
+
               </div>
-              
-            </div>
-            
-            
-            <div class="calendar-box col-sm-6">
-              <div id="calendar" ></div>
-            </div>
+
+
+              <div class="calendar-box col-sm-6">
+                <div id="calendar"></div>
+              </div>
+            <!-- </form> -->
           </div>
-          
+
           <!-- <div class="col-sm-6 text-right">
             <div id="menu">
               <span id="menu-navi">
@@ -189,7 +194,7 @@
       </div>
       <div class="card-body">
         <!-- <div class="chart-area"> -->
-          <canvas id="chart-1"></canvas>
+        <canvas id="chart-1"></canvas>
         <!-- </div> -->
       </div>
     </div>
@@ -202,13 +207,52 @@
       </div>
       <div class="card-body">
         <!-- <div class="chart-area"> -->
-          <canvas id="chart-2"></canvas>
+        <div id="stats-result" class="card-header"></div>
+        <br>
+        <table class="table table-borderless" id="table-diary-stats">
+          <tbody>
+            <tr>
+              <td>
+                <div></div>
+              </td>
+              <td>
+                <div></div>
+              </td>
+              <td>
+                <div></div>
+              </td>
+              <td>
+                <div></div>
+              </td>
+              <td>
+                <div></div>
+              </td>
+              <td>
+                <div></div>
+              </td>
+              <td>
+                <div></div>
+              </td>
+            </tr>
+          </tbody>
+          <thead>
+            <tr>
+              <th scope="col">Monday</th>
+              <th scope="col">Tuesday</th>
+              <th scope="col">Wednesday</th>
+              <th scope="col">Thursday</th>
+              <th scope="col">Friday</th>
+              <th scope="col">Saturday</th>
+              <th scope="col">Sunday</th>
+            </tr>
+          </thead>
+        </table>
         <!-- </div> -->
       </div>
     </div>
   </div>
 </div>
-  <!-- <div class="col-lg-4">
+<!-- <div class="col-lg-4">
     <div class="card card-chart">
       <div class="card-header">
         <h5 class="card-category">Daily Sales</h5>
@@ -241,9 +285,7 @@
 <!-- Specific Page JS goes HERE  -->
 {% block javascripts %}
 
-  {% include 'includes/scripts-calendar.html' %}
-  {% include 'includes/scripts-chart.html' %}
+{% include 'includes/scripts-calendar.html' %}
+{% include 'includes/scripts-chart.html' %}
 
 {% endblock javascripts %}
-
-

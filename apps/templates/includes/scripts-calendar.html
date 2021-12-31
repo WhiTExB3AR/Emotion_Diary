@@ -1,24 +1,67 @@
+<style>
+    .style-happy {
+        color: 'white';
+        background-color: '#4ab847';
+    }
+
+    .style-anger {
+        color: 'white';
+        background-color: '#e71e24';
+    }
+
+    .style-contempt {
+        color: 'white';
+        background-color: '#ff6384';
+    }
+
+    .style-disgust {
+        color: 'white';
+        background-color: '#9966ff';
+    }
+
+    .style-fear {
+        color: 'white';
+        background-color: '#ff9f40';
+    }
+
+    .style-sad {
+        color: 'white';
+        background-color: '#1a61af';
+    }
+
+    .style-surprise {
+        color: 'white';
+        background-color: ')#ffce56';
+    }
+
+    .style-neutral {
+        color: 'white';
+        background-color: '#4bc0c0';
+    }
+</style>
+
 <script>
 
-  const LABEL_VALUES={
-    0:'Anger',
-    1:'Contempt',
-    2:'Disgust',
-    3:'Fear',
-    4:'Happy',
-    5:'Sad',
-    6:'Surprise',
-    7:'Neutral'
-  };
+    const LABEL_VALUES = {
+        0: 'Anger',
+        1: 'Contempt',
+        2: 'Disgust',
+        3: 'Fear',
+        4: 'Happy',
+        5: 'Sad',
+        6: 'Surprise',
+        7: 'Neutral'
+    };
+    let lastClickSchedule=null;
 
     var btnToday = document.querySelector("#btn-today");
     var btnNext = document.querySelector("#btn-next");
     var btnPrev = document.querySelector("#btn-prev");
 
     // Attach listeners
-    btnToday.addEventListener( "click", onClickTodayBtn );
-    btnNext.addEventListener( "click", moveToNextOrPrevRange );
-    btnPrev.addEventListener( "click", moveToNextOrPrevRange );
+    btnToday.addEventListener("click", onClickTodayBtn);
+    btnNext.addEventListener("click", moveToNextOrPrevRange);
+    btnPrev.addEventListener("click", moveToNextOrPrevRange);
 
     function onClickTodayBtn() {
         calendar.today();
@@ -51,8 +94,8 @@
         taskView: true,
         scheduleView: true,
         template: {
-            monthDayname: function(dayname) {
-            return '<span class="calendar-week-dayname-name">' + dayname.label + '</span>';
+            monthDayname: function (dayname) {
+                return '<span class="calendar-week-dayname-name">' + dayname.label + '</span>';
             }
         }
     });
@@ -81,45 +124,80 @@
     // }
     // ]);
 
-    $(function(){
+    const EMOTION_STYLE = {
+        0: 'style-anger',
+        1: 'style-contempt',
+        2: 'style-disgust',
+        3: 'style-fear',
+        4: 'style-happy',
+        5: 'style-sad',
+        6: 'style-surprise',
+        7: 'style-neutral'
+    }
+    const EMOTION_BG_COLOR = {
+        0: 'rgba(231, 30, 36, 0.8)',
+        1: 'rgba(255, 99, 132, 1)',
+        2: 'rgba(153, 102, 255, 1)',
+        3: 'rgba(255, 159, 64, 1)',
+        4: 'rgba(74, 184, 71, 0.8)',
+        5: 'rgba(26, 97, 175, 0.8)',
+        6: 'rgba(255, 206, 86, 1)',
+        7: 'rgba(75, 192, 192, 1)'
+    }
+
+    let diaryData=null;
+
+    $(function () {
         $.ajax({
-            url:'/fetch_diary',
+            url: '/fetch_diary',
             method: 'POST',
-            success:function(response){
-                const schedules=response.result.map(function(x){
-                    let emotion=null;
-                    switch(x.eid){
-                        case 1:{
-                            emotion = 'event-happy'
-                            break;
-                        }
-                        default:{
-                            break;
-                        }
-                    }
+            success: function (response) {
+                const schedules = response.result.map(function (x) {
                     return {
-                        id:x.id,
+                        id: x.id,
                         // calendarId: '1',
                         // title:x.title,
-                        title:LABEL_VALUES[x.id],
-                        body:x.content,
+                        title: LABEL_VALUES[x.eid],
+                        body: x.content,
                         category: 'time',
-                        start:x.post_datetime,
-                        isAllDay:true,
-                        customStyle: emotion
+                        start: x.post_datetime,
+                        isAllDay: true,
+                        // customStyle: '.'+EMOTION_STYLE[x.eid]
+                        bgColor: EMOTION_BG_COLOR[x.eid]
                     }
                 })
+                diaryData = {};
+                for (let i = 0; i < response.result.length; i++) {
+                    const e = response.result[i];
+                    diaryData[e.id]=e;
+                }
+
                 console.log(schedules);
                 calendar.createSchedules(schedules);
             }
         })
     });
 
-</script>
+    calendar.on('clickSchedule', function (event) {
+        const schedule = event.schedule;
 
-<style>
-    .event-happy{
-        color:'white';
-        background-color:'cyan';
-    }
-</style>
+        if (lastClickSchedule) {
+            calendar.updateSchedule(lastClickSchedule.id, lastClickSchedule.calendarId, {
+                isFocused: false
+            });
+        }
+        calendar.updateSchedule(schedule.id, schedule.calendarId, {
+            isFocused: true
+        });
+
+        lastClickSchedule = schedule;
+        // open detail view
+        const data = diaryData[schedule.id];
+
+        $('#diary_id').val(schedule.id);
+        $('#title_create_diary').val(data.title);
+        $('#content_create_diary').val(schedule.body);
+        $('#diary_image').attr('src',`/static/assets/img/snapshots/${data.imgname}`)
+    });
+
+</script>

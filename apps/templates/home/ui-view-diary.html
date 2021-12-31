@@ -40,7 +40,46 @@
               </label>
             </div>
           </div> -->
-          <div class="col-sm-6 text-right">
+          
+          <div class="col-sm-6 text-center">
+            <div id="menu">
+              <span id="menu-navi">
+                <button id="btn-today" type="button" class="btn btn-default btn-sm move-today" data-action="move-today">Today</button>
+                <button id="btn-prev" type="button" class="btn btn-default btn-sm move-day" data-action="move-prev">
+                  <i class="calendar-icon ic-arrow-line-left"><</i>
+                </button>
+                <button id="btn-next" type="button" class="btn btn-default btn-sm move-day" data-action="move-next">
+                  <i class="calendar-icon ic-arrow-line-right">></i>
+                </button>
+              </span>
+              <span id="renderRange" class="render-range"></span>
+            </div>
+          </div>
+          <div class="card-body row">
+
+            <div class="col-sm-6">
+              <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+                <div class="card-header">Header</div>
+                <div class="card-body">
+                  <h5 class="card-title">Dark card title</h5>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+              </div>
+              <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+                <div class="card-header">Header</div>
+                <div class="card-body">
+                  <h5 class="card-title">Dark card title</h5>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="calendar-box col-sm-6">
+              <div id="calendar" ></div>
+            </div>
+          </div>
+          
+          <!-- <div class="col-sm-6 text-right">
             <div id="menu">
               <span id="menu-navi">
                 <button id="btn-today" type="button" class="btn btn-default btn-sm move-today" data-action="move-today">Today</button>
@@ -60,7 +99,7 @@
               <div id="calendar" ></div>
             </div>
             <div class="col-sm-3"></div>
-          </div>
+          </div> -->
         </div>
       </div>
       <!-- <div class="card-body">

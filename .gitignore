@@ -37,3 +37,4 @@ apps/static/assets/node_modules
 apps/static/assets/yarn.lock
 apps/static/assets/.temp
 apps/static/assets/img/snapshots
+apps/fer_model/ckpts/CKPlus/res_cls/fold_0/

@@ -1,17 +1,17 @@
 <script>
-    
+
     const EMOTION_DEFAULT_VALUE = {}
     for (let i = 0; i < 8; i++) {
-        EMOTION_DEFAULT_VALUE[i]=0;
+        EMOTION_DEFAULT_VALUE[i] = 0;
     }
-    const EMOTION_IDS=Object.keys(EMOTION_DEFAULT_VALUE);
-    
-    $(function(){
+    const EMOTION_IDS = Object.keys(EMOTION_DEFAULT_VALUE);
+
+    $(function () {
         $.ajax({
-            url:'/fetch_chart',
+            url: '/fetch_chart',
             method: 'POST',
-            success:function(response){
-                const emotion_counts=Object.assign({}, EMOTION_DEFAULT_VALUE);
+            success: function (response) {
+                const emotion_counts = Object.assign({}, EMOTION_DEFAULT_VALUE);
                 // const eids=[], counts=[];
                 for (let i = 0; i < response.result.length; i++) {
                     const e = response.result[i];
@@ -20,8 +20,8 @@
                     // counts.push(e.count)
                     emotion_counts[e.eid] = e.count;
                 }
-                const count_values=Object.values(emotion_counts);
-                console.log(response.result,EMOTION_IDS,count_values);
+                const count_values = Object.values(emotion_counts);
+                console.log(response.result, EMOTION_IDS, count_values);
 
                 const ctx_1 = document.getElementById('chart-1').getContext('2d');
                 const myChart_1 = new Chart(ctx_1, {
@@ -58,53 +58,99 @@
                     }
                 });
 
-                const ctx_2 = document.getElementById('chart-2').getContext('2d'); // https://www.chartjs.org/docs/latest/samples/area/line-datasets.html
-                const myChart_2 = new Chart(ctx_2, {
-                    type: 'line',
-                    data: {
-                        labels: eids,
-                        datasets: [{
-                            label: '# of emotions',
-                            data: counts,
-                            backgroundColor: [
-                                'rgba(231, 30, 36, 0.8)',
-                                'rgba(255, 99, 132, 1)',
-                                'rgba(153, 102, 255, 1)',
-                                'rgba(255, 159, 64, 1)',
-                                'rgba(74, 184, 71, 0.8)',
-                                'rgba(26, 97, 175, 0.8)',
-                                'rgba(255, 206, 86, 1)',
-                                'rgba(75, 192, 192, 1)',
-                            ],
-                            borderColor: [
-                                'rgba(231, 30, 36, 0.8)',
-                                'rgba(255, 99, 132, 1)',
-                                'rgba(153, 102, 255, 1)',
-                                'rgba(255, 159, 64, 1)',
-                                'rgba(74, 184, 71, 0.8)',
-                                'rgba(26, 97, 175, 0.8)',
-                                'rgba(255, 206, 86, 1)',
-                                'rgba(75, 192, 192, 1)',
-                            ],
-                            borderWidth: 1,
-                            hoverOffset: 4
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        plugins: {
-                            legend: {
-                                position: 'top',
-                            },
-                            title: {
-                                display: true,
-                                text: 'Track Week'
-                            }
-                        }
-                    },
-                });
+                const DATA_COUNT = 7;
+                const NUMBER_CFG = { count: DATA_COUNT, min: 0, max: 7 };
+                const labels = Utils.weekdays
 
-                
+
+
+
+            }
+        })
+
+        const chartLabel2=['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+        const STREAK_THRESHOLD=1;
+        // const chartData2 = new FormData();
+        // chartData2.append('datetime','_YOUR_DATETIME_TOISOSTRING_');
+        $.ajax({
+            url: '/fetch_week',
+            method: 'POST',
+            // data:chartData2,
+            success: function (response) {
+                // const ctx_2 = document.getElementById('chart-2').getContext('2d'); // https://www.chartjs.org/docs/latest/samples/area/line-datasets.html
+                const chartValue=Object.values(response);
+                let count=1, currentEmotion=-1;
+                for (let i = 0; i < chartValue.length; i++) {
+                    const e = chartValue[i];
+                    if(e>=0){
+                        const selector= `#table-diary-stats > tbody > tr > td:nth-child(${i+1}) > div`;
+                        $(selector).css('background-color',EMOTION_BG_COLOR[e]);
+                        $(selector).css('color','black');
+                        $(selector).css('border-radius','50px');
+                        $(selector).css('text-align','center');
+                        $(selector).text(LABEL_VALUES[e])
+
+                        // Analyze
+                        if(currentEmotion==e){
+                            count+=1;
+                        }else{
+                            currentEmotion=e;
+                            count=1;
+                        }
+                    }
+                }
+                console.log('stats', currentEmotion,count);
+                if(count>= STREAK_THRESHOLD) {
+                    $('#stats-result').text('Tuần này của bạn vẫn rất ổn đấy chứ. Cố gắng giữ vững phong độ nhé!!')
+                }
+                // const myChart_2 = new Chart(ctx_2, {
+                //     type: 'line',
+                //     data: {
+                //         labels: chartLabel2,
+                //         datasets: [{
+                //             label: '# of emotions',
+                //             data: chartValue,
+                //             // backgroundColor: [
+                //             //     'rgba(231, 30, 36, 0.8)',
+                //             //     'rgba(255, 99, 132, 1)',
+                //             //     'rgba(153, 102, 255, 1)',
+                //             //     'rgba(255, 159, 64, 1)',
+                //             //     'rgba(74, 184, 71, 0.8)',
+                //             //     'rgba(26, 97, 175, 0.8)',
+                //             //     'rgba(255, 206, 86, 1)',
+                //             //     'rgba(75, 192, 192, 1)',
+                //             // ],
+                //             // borderColor: [
+                //             //     'rgba(231, 30, 36, 0.8)',
+                //             //     'rgba(255, 99, 132, 1)',
+                //             //     'rgba(153, 102, 255, 1)',
+                //             //     'rgba(255, 159, 64, 1)',
+                //             //     'rgba(74, 184, 71, 0.8)',
+                //             //     'rgba(26, 97, 175, 0.8)',
+                //             //     'rgba(255, 206, 86, 1)',
+                //             //     'rgba(75, 192, 192, 1)',
+                //             // ],
+                //             // borderWidth: 1,
+                //             // hoverOffset: 4
+                //         }]
+                //     },
+                //     options: {
+                //         responsive: true,
+                //         plugins: {
+                //             legend: {
+                //                 position: 'top',
+                //             },
+                //             title: {
+                //                 display: true,
+                //                 text: 'Track Week'
+                //             }
+                //         },
+                //         interaction: {
+                //             intersect: false,
+                //             axis: 'x'
+                //         },
+                //     },
+                // });
             }
         })
     });

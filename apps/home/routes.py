@@ -199,21 +199,20 @@ def fetch_chart():
         })
     return jsonify(result=result)
 
-@blueprint.route('/fetch_week', methods=['GET', 'POST'])
+@blueprint.route('/fetch_week', methods=['POST'])
 def fetch_weekly():
     str_date=request.form.get('datetime',None)
     if str_date:
         current_date=datetime.datetime.fromisoformat(str_date)
     else:
         current_date=datetime.datetime.now()
+    current_date = current_date.replace(hour=0, minute=0, second=0, microsecond=0)
     start_date=current_date - datetime.timedelta(days=current_date.weekday())
-    end_date=start_date+datetime.timedelta(days=6)
+    end_date=start_date+datetime.timedelta(days=7)
     diaries=Diaries.query\
-        .filter(Diaries.uid==5)\
-        .filter(Diaries.post_datetime>=start_date)\
+        .filter(Diaries.uid==current_user.get_id())\
+        .filter(Diaries.post_datetime.between(start_date,end_date))\
         .all()
-        # .filter(Diaries.post_datetime.between(start_date,end_date))\
-        # .all()
         # .filter(and_(
         #     Diaries.uid == 5,
         #     Diaries.post_datetime.between(start_date,end_date)
@@ -221,16 +220,26 @@ def fetch_weekly():
         # .all()
         # .order_by(Diaries.post_datetime.desc())\
         # .all()
-    result=[]
+    diary_stats=dict()
+    for i in range(7):
+        diary_stats[i]=-1
     for d in diaries:
-        result.append({
-            'post_datetime':d.post_datetime.isoformat(),
-            'eid':d.eid,
-        })
-    return {
-        'result':result
-    }
+        post_day_of_week=d.post_datetime.weekday()
+        diary_stats[post_day_of_week]=d.eid
+        # result.append({
+        #     'post_datetime':d.post_datetime.isoformat(),
+        #     'eid':d.eid,
+        # })
+    return diary_stats
 
+@blueprint.route('/update-diary', methods=['POST'])
+def update_diary():
+
+    # create_form = CreateForm(request.form)
+
+    id = request.form['id']
+    title = request.form['title']
+    content = request.form['content']
 
 @blueprint.route('/<template>')
 @login_required

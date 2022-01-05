@@ -195,8 +195,8 @@
         const data = diaryData[schedule.id];
 
         $('#diary_id').val(schedule.id);
-        $('#title_create_diary').val(data.title);
-        $('#content_create_diary').val(schedule.body);
+        $('#title_update_diary').val(data.title);
+        $('#content_update_diary').val(schedule.body);
         $('#diary_image').attr('src',`/static/assets/img/snapshots/${data.imgname}`)
     });
 

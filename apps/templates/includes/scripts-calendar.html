@@ -56,7 +56,7 @@
         6: 'Surprise',
         7: 'Neutral'
     };
-    let lastClickSchedule=null;
+    let lastClickSchedule = null;
 
     var btnToday = document.querySelector("#btn-today");
     var btnNext = document.querySelector("#btn-next");
@@ -149,7 +149,7 @@
         7: 'rgba(75, 192, 192, 1)'
     }
 
-    let diaryData=null;
+    let diaryData = null;
 
     $(function () {
         $.ajax({
@@ -173,7 +173,7 @@
                 diaryData = {};
                 for (let i = 0; i < response.result.length; i++) {
                     const e = response.result[i];
-                    diaryData[e.id]=e;
+                    diaryData[e.id] = e;
                 }
 
                 console.log(schedules);
@@ -201,7 +201,23 @@
         $('#diary_id').val(schedule.id);
         $('#title_update_diary').val(data.title);
         $('#content_update_diary').val(schedule.body);
-        $('#diary_image').attr('src',`/static/assets/img/snapshots/${data.imgname}`)
+        $('#diary_image').attr('src', `/static/assets/img/snapshots/${data.imgname}`)
     });
+
+    $('#form-update-diary').submit(function(e){
+        e.preventDefault();
+    });
+
+    $('#form-update-diary').submit(function (e) {
+        const form = $(this);
+        $.ajax({
+            url: form.attr('action'),
+            type: form.attr('method'),
+            data: form.serialize(), // data to be submitted
+            success: function (response) {
+                alert(response.result); // do what you like with the response
+            }
+        });
+    })
 
 </script>

@@ -5,6 +5,16 @@
         EMOTION_DEFAULT_VALUE[i] = 0;
     }
     const EMOTION_IDS = Object.keys(EMOTION_DEFAULT_VALUE);
+    const EMOTION_TEXT={
+        0: 'Once you are calm, express your anger.',
+        1: 'Smile! It takes less muscle than a frown contempt',
+        2: 'Try slowly practicing exposure to something you disgust. It can change evything! ',
+        3: 'Use your imagination in positive ways or face with your fear!',
+        4: 'Your week is going well. Keep going!!!',
+        5: 'Why you so sad, you should watch this video: https://youtu.be/d96akWDnx0w',
+        6: 'Are you serious? What happened to you for surprise? Can you share with me?',
+        7: "Just normal day, huh. Why don't you do something different"
+    }
 
     $(function () {
         $.ajax({
@@ -60,7 +70,7 @@
 
                 const DATA_COUNT = 7;
                 const NUMBER_CFG = { count: DATA_COUNT, min: 0, max: 7 };
-                const labels = Utils.weekdays
+                // const labels = Utils.weekdays
 
 
 
@@ -79,7 +89,7 @@
             success: function (response) {
                 // const ctx_2 = document.getElementById('chart-2').getContext('2d'); // https://www.chartjs.org/docs/latest/samples/area/line-datasets.html
                 const chartValue=Object.values(response);
-                let count=1, currentEmotion=-1;
+                let count=1, currentEmotion=-1, maxCount=0, maxEmotion=-1;
                 for (let i = 0; i < chartValue.length; i++) {
                     const e = chartValue[i];
                     if(e>=0){
@@ -93,15 +103,26 @@
                         // Analyze
                         if(currentEmotion==e){
                             count+=1;
+                            if(count>maxCount){
+                                maxCount=count;
+                                maxEmotion=currentEmotion;
+                            }
                         }else{
                             currentEmotion=e;
                             count=1;
+                            if(maxEmotion==-1){
+                                maxEmotion=currentEmotion;
+                                maxCount=count;
+                            }
                         }
                     }
                 }
-                console.log('stats', currentEmotion,count);
-                if(count>= STREAK_THRESHOLD) {
-                    $('#stats-result').text('Tuần này của bạn vẫn rất ổn đấy chứ. Cố gắng giữ vững phong độ nhé!!')
+                console.log('stats', maxEmotion,maxCount);
+                if(maxCount>= STREAK_THRESHOLD) {
+                    $('#stats-result').text(EMOTION_TEXT[maxEmotion])
+                }
+                if(maxCount==1){
+                    $('#stats-result').text('Keep expressing your feeling by writing for next day.')
                 }
                 
             }

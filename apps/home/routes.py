@@ -16,7 +16,7 @@ from flask_login import (
 from apps import db, login_manager
 from apps.authentication.models import Users, Diaries, Emotions
 from apps.home.camera import gen_frames
-from apps.home.forms import CreateForm, ViewForm
+from apps.home.forms import CreateForm, UpdateForm
 import datetime
 import pytz # libraby for python timezone
 import werkzeug
@@ -37,7 +37,7 @@ def index():
 
     # ------- Start: B3AR config code -------
     create_form = CreateForm(request.form)
-    view_form = ViewForm(request.form)
+    update_form = UpdateForm(request.form)
     return render_template('home/index.html', segment='index', form=create_form)
     # ------- End: B3AR config code -------
 
@@ -237,9 +237,40 @@ def update_diary():
 
     # create_form = CreateForm(request.form)
 
-    id = request.form['id']
+    did = request.form['did']
     title = request.form['title']
     content = request.form['content']
+
+    uid=current_user.get_id()
+    # query DB
+    diaries=Diaries.query\
+        .filter(Diaries.uid==uid)\
+        .filter(Diaries.id==did)\
+        .first()
+    return diaries
+
+    # diary = Diaries.query.filter_by(did=did).first()
+    # if diary:
+    #         return render_template(
+    #             'home/ui-view-diary.html',
+    #             msg="Please insert new value",
+    #             success=False,
+    #             segment='ui-view-diary',
+    #             # form=create_form
+    #         )
+    # diary = Diaries(
+    #             title = title, 
+    #             content = content
+    # )
+    # db.session.commit()
+    # print('* [INFO] Added to DB')
+    # return render_template(
+    #     'home/ui-view-diary.html',
+    #     success=True,
+    #     segment='ui-view-diary',
+    #     # form=create_form
+    # )
+
 
 @blueprint.route('/<template>')
 @login_required

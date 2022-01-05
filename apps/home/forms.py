@@ -37,24 +37,19 @@ class CreateForm(FlaskForm):
     )    
 
 
-class ViewForm(FlaskForm):
-    post_datetime = DateTimeField(
-        'Date',
-        id='post_view_datetime',
-        validators=[DataRequired()]
-    )
-    emoname = TextField(
-        'Mood Today',
-        id='today_view_emotion',
+class UpdateForm(FlaskForm):
+    diaryid = TextField(
+        'Diary ID',
+        id='did',
         validators=[DataRequired()]
     )
     title = TextField(
         'Title',
-        id='title_view_diary'
+        id='title_update_diary'
     )
     content = TextAreaField(
         'Content',
-        id='content_view_diary'
+        id='content_update_diary'
     )    
 
 

@@ -243,34 +243,13 @@ def update_diary():
 
     uid=current_user.get_id()
     # query DB
-    diaries=Diaries.query\
-        .filter(Diaries.uid==uid)\
-        .filter(Diaries.id==did)\
-        .first()
-    return diaries
-
-    # diary = Diaries.query.filter_by(did=did).first()
-    # if diary:
-    #         return render_template(
-    #             'home/ui-view-diary.html',
-    #             msg="Please insert new value",
-    #             success=False,
-    #             segment='ui-view-diary',
-    #             # form=create_form
-    #         )
-    # diary = Diaries(
-    #             title = title, 
-    #             content = content
-    # )
-    # db.session.commit()
-    # print('* [INFO] Added to DB')
-    # return render_template(
-    #     'home/ui-view-diary.html',
-    #     success=True,
-    #     segment='ui-view-diary',
-    #     # form=create_form
-    # )
-
+    diary=Diaries.query.get(did)
+    diary.title = title
+    diary.content = content
+    db.session.commit()
+    return {
+        'result':'Updated successfully'
+    }
 
 @blueprint.route('/<template>')
 @login_required

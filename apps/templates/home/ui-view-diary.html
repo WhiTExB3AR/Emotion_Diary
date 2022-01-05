@@ -68,37 +68,39 @@
                         Update Diary
                       </div>
                     </div>
-                    <div class="col-sm-6">
+                    <!-- <div class="col-sm-6">
                       <h5 class="card-header"> </h5>
-                    </div>
+                    </div> -->
                   </div>
                   <div class="card-body">
-                    <div class="row">
-                      <div class="col-sm-3">
-                        <span class=""> </span>
+                    <form role="form" method="post" action="/update-diary" id="form-update-diary"></form>
+                      <div class="row">
+                        <div class="col-sm-3">
+                          <span class=""> </span>
+                        </div>
+                        <div class="ccol-sm-3">
+                          <span class="card-title"> </span>
+                        </div>
                       </div>
-                      <div class="ccol-sm-3">
-                        <span class="card-title"> </span>
+                      <input class="form-control" type="hidden" name="did" id="diary_id">
+                      <div class="form-group">
+                        <label>Title</label>
+                        <input class="form-control" id="title_update_diary" name="title" type="text" value="">
                       </div>
-                    </div>
-                    <input type="hidden" name="id" id="diary_id">
-                    <div class="form-group">
-                      <label>Title</label>
-                      <input class="form-control" id="title_create_diary" name="title" type="text" value="">
-                    </div>
-                    <div class="form-group">
-                      <label>New content</label>
-                      <textarea class="form-control" rows="5" id="content_create_diary" name="content" type="text"
-                        value=""></textarea>
-                    </div>
-                    <div class="text-center">
-                      <img class="rounded" src="/static/assets/img/blank.png" alt="photo" width="320" height="240"
-                        id="diary_image">
-                    </div>
-                    <div class="card-footer text-center">
-                      <button type="submit" name="create_diary" id='create_diary'
-                        class="btn btn-fill btn-primary">Update</button>
-                    </div>
+                      <div class="form-group">
+                        <label>New content</label>
+                        <textarea class="form-control" rows="5" id="content_update_diary" name="content" type="text"
+                          value=""></textarea>
+                      </div>
+                      <div class="text-center">
+                        <img class="rounded" src="/static/assets/img/blank.png" alt="photo" width="320" height="240"
+                          id="diary_image">
+                      </div>
+                      <div class="card-footer text-center">
+                        <button type="submit" name="update_diary" id='update_diary'
+                          class="btn btn-fill btn-primary">Update</button>
+                      </div>
+                    </form>
                   </div>
                 </div>
 

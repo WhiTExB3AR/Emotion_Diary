@@ -27,7 +27,7 @@ from PIL import Image
 import cv2
 import numpy as np
 import os
-from apps.fer_model.predict import transform_image, res_solver, model_options
+from apps.fer_model.predict import transform_image, res_solver, model_options #, model_options_cpu
 from sqlalchemy import func
 # ------- End: B3AR config code -------
 
@@ -142,7 +142,8 @@ def handle_image():
             'img_path': 'flask'
         }
 
-        rs=res_solver.test_networks(model_options, batch)
+        rs=res_solver.test_networks(model_options, batch) #run option for gpu
+        # rs=res_solver.test_networks(model_options_cpu, batch) #run option for cpu
 
         return {
             'predicted_label':rs.tolist()[0]

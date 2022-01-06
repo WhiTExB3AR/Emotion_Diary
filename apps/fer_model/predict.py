@@ -75,10 +75,13 @@ def read_options(filename):
     with open(filename, 'rb') as f:
         return pickle.load(f)
 
-model_options = read_options('apps/fer_model/options.pkl')
+model_options = read_options('apps/fer_model/options.pkl') #run option for gpu
+# model_options_cpu = read_options('apps/fer_model/options_cpu.pkl') #run option for cpu
 
 res_solver=ResFaceClsSolver()
-res_solver.initialize(model_options)
+res_solver.initialize(model_options) #run option for gpu
+# res_solver.initialize(model_options_cpu) #run option for cpu
+
 # if __name__ == '__main__':
 #     options = Options().parse()
 #     input_img = Image.open('datasets/AffectNet/imgs/train_set/0.jpg').convert('RGB')

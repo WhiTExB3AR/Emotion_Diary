@@ -6,14 +6,14 @@
     }
     const EMOTION_IDS = Object.keys(EMOTION_DEFAULT_VALUE);
     const EMOTION_TEXT={
-        0: 'Once you are calm, express your anger.',
-        1: 'Smile! It takes less muscle than a frown contempt',
-        2: 'Try slowly practicing exposure to something you disgust. It can change evything! ',
-        3: 'Use your imagination in positive ways or face with your fear!',
-        4: 'Your week is going well. Keep going!!!',
-        5: 'Why you so sad, you should watch this video: https://youtu.be/d96akWDnx0w',
-        6: 'Are you serious? What happened to you for surprise? Can you share with me?',
-        7: "Just normal day, huh. Why don't you do something different"
+        0: "Once you are calm, express your anger." + "\n" + " Bình tĩnh nào bạn yêu ơi, nóng giận quá sẽ không tốt đâu.",
+        1: "Smile! It takes less muscle than a frown contempt." + "\n" + " Cười lên nào! Cơ mặt bạn sẽ trẻ ra hơn là chán ghét đó.",
+        2: "Try slowly practicing exposure to something you disgust. It can change everything!" + "\n" + "Sao bạn không thử làm quen với điều đó. Nó sẽ thay đổi đấy.",
+        3: "Use your imagination in positive ways or face with your fear!" + "\n" + "Hãy suy nghĩ về mặt tích cực nhé hoặc là đối mặt với nỗi sợ luôn nào!",
+        4: "Your week is going well. Keep going!!!" + "\n" + "Tuần này của bạn vẫn ổn đấy, tiếp tục giữ vững nha!!!",
+        5: "Why you so sad, you should watch this video: https://youtu.be/d96akWDnx0w" + "\n" + " Bạn yêu ơi, hãy xem đoạn video này đi, nó sẽ giúp được bạn đấy.",
+        6: "Are you serious? What happened to you for surprise? Can you share with me?" + "\n" + " Thật không đấy? Có chuyện gì mà bạn ngạc nhiên thế? Nói mình biết được không?",
+        7: "Just normal day, huh. Why don't you do something different. " + "\n" + " Một ngày bình thưởng nhỉ? Bạn thử làm gì đó khác xem."
     }
 
     $(function () {
@@ -122,7 +122,7 @@
                     $('#stats-result').text(EMOTION_TEXT[maxEmotion])
                 }
                 if(maxCount==1){
-                    $('#stats-result').text('Keep expressing your feeling by writing for next day.')
+                    $('#stats-result').text("Keep expressing your feeling by writing for next day." + "\n" + "Hãy tiếp tục viết nhật ký nhé, mình mong bạn lắm đấy.")
                 }
                 
             }

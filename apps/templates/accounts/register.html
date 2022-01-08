@@ -16,13 +16,13 @@
           {{ form.hidden_tag() }} 
 
           <div class="card-header">
-            <h5 class="title">Register</h5>
+            <h5 class="title">Đăng ký</h5>
 
             <h6 class="card-category">
                 {% if msg %}
                   <span class="text-danger">{{ msg | safe }}</span>
                 {% else %}
-                  Complete your credentials
+                  Hoàn thành thông tin của bạn
                 {% endif %}  
             </h6>
           </div>
@@ -58,9 +58,9 @@
               
           </div>
           <div class="card-footer">
-            <button type="submit" name="register" class="btn btn-fill btn-primary">Register</button>
+            <button type="submit" name="register" class="btn btn-fill btn-primary">Đăng ký</button>
             &nbsp; &nbsp;
-            Have an account? <a href="{{ url_for('authentication_blueprint.login') }}" class="text-primary">Login</a>
+            Đã có tài khoản? <a href="{{ url_for('authentication_blueprint.login') }}" class="text-primary">Đăng nhập</a>
           </div>
 
         </form>

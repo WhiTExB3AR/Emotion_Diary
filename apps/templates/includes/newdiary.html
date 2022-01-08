@@ -14,8 +14,8 @@
           
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+          <button type="button" class="btn btn-primary">Lưu thay đổi</button>
         </div>
       </div>
     </div>
@@ -24,12 +24,12 @@
       <div class="card card-chart">
         <form role="form" method="post" action="/newdiary" id="form-create-diary">
           <div class="card-header">
-            <h4 class="title">Your diary today</h4>
+            <h4 class="title">Nhật ký hôm nay</h4>
 
             <!-- {{ form.hidden_tag() }}  -->
 
             <h5 class="card-category">
-                Write it now and try capture your emotion by AI.
+                Viết chúng ra và thử chụp một bức ảnh cho AI nào.
             </h5>
           </div>
 
@@ -44,7 +44,7 @@
               </div>
               <div class="col-md-3 px-md-3">
                 <div class="form-group">
-                  <label>Date Time</label>
+                  <label>Thời gian</label>
                   <div class="text-center">
                     <input class="form-control" id="post_create_datetime" name="post_datetime" required="" type="datetime" value="" readonly="">
                   </div>
@@ -52,19 +52,19 @@
               </div>
               <div class="col-md-3 px-md-5">
                 <div class="form-group">
-                  <label>Image Name</label>
+                  <label>Hình ảnh</label>
                   <input class="form-control" id="img_create_diary" name="imgname" required="" type="text" value="" readonly="">
                 </div>
               </div>
               <div class="col-md-2 px-md-5">
                 <div class="form-group">
-                  <label>Emotion ID</label>
+                  <label>ID cảm xúc</label>
                   <input class="form-control" id="eid_create_diary" name="eid" required="" type="text" value="">
                 </div>
               </div>
               <div class="col-md-2 px-md-4">
                 <div class="form-group">
-                  <label>Emotion Name</label>
+                  <label>Cảm xúc</label>
                   <input class="form-control" id="emotion_create_diary" name="emoname" type="text" value="">
                 </div>
               </div>
@@ -73,13 +73,13 @@
             <div class="row">
               <div class="col-md-12 px-md-5">
                 <div class="form-group">
-                  <label>Title (Optional)</label>
+                  <label>Tiêu đề (tuỳ chọn)</label>
                   <input class="form-control" id="title_create_diary" name="title" type="text" value="">
                 </div>
               </div>
               <div class="col-md-12 px-md-5">
                 <div class="form-group">
-                  <label>Tell about your day (Optional)</label>
+                  <label>Kể cho tôi nghe về ngày hôm nay nào (tuỳ chọn)</label>
                   <textarea class="form-control" rows="5" id="content_create_diary" name="content" type="text" value=""></textarea>
                 </div>
               </div>

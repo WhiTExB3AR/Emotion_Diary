@@ -249,7 +249,7 @@ def update_diary():
     diary.content = content
     db.session.commit()
     return {
-        'result':'Updated successfully'
+        'result':'Cập nhật thành công'
     }
 
 @blueprint.route('/<template>')
